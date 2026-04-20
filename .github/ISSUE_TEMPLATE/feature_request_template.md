@@ -1,19 +1,21 @@
 ---
-name: "✨ Feature Request"
+name: '✨ Feature Request'
 about: 새로운 기능 제안
-title: "[FEAT] "
+title: '[FEAT] '
 labels: Feat
 assignees: ''
-
 ---
 
 ## 🚀 제안 배경
+
 > 해당 기능이 왜 필요한지, 어떤 문제를 해결하는지 설명해주세요.
 
 ## 💡 제안 내용
+
 > 구현하고자 하는 기능의 구체적인 내용을 적어주세요.
 
 ## ✅ 주요 작업 목록
+
 > 구현에 필요한 작업 내용을 적어주세요.
 
 - [ ] 작업 1
