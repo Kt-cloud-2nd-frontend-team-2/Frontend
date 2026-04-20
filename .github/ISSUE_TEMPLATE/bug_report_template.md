@@ -1,8 +1,8 @@
 ---
 name: "🐞 Bug Report"
-about: 버그를 보고하여 앱의 품질을 개선합니다.
-title: "[BUG] "
-labels: Bug
+about: 버그 보고
+title: "[FIX] "
+labels: Fix
 assignees: ''
 
 ---

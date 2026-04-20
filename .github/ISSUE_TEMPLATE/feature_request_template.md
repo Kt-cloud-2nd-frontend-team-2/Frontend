@@ -1,6 +1,6 @@
 ---
 name: "✨ Feature Request"
-about: 새로운 기능 제안 또는 개선 아이디어를 공유합니다.
+about: 새로운 기능 제안
 title: "[FEAT] "
 labels: Feat
 assignees: ''
