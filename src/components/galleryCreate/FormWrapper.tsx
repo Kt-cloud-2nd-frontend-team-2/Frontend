@@ -14,20 +14,20 @@ export default function CreateGalleryFormWrapper({
   children: React.ReactNode;
 }) {
   return (
-    <div className={'flex flex-col  gap-2'}>
-      <p className={'font-medium flex gap-2 w-fit'}>
+    <div className={'flex flex-col gap-2'}>
+      <p className={'flex w-fit gap-2 font-medium'}>
         <Image
           src={icon}
           width={15}
           height={15}
           alt={'logo'}
-          className={' inline m-auto'}
+          className={'m-auto inline'}
         />
         {title}
-        {required && <span className={'text-red-500 text-[14px]'}>*</span>}
+        {required && <span className={'text-[14px] text-red-500'}>*</span>}
       </p>
       <div
-        className={`px-4 py-5 rounded-[14px] text-[#2C28264D] text-[18px] bg-[#FAF7F2] border border-[#2C28260D] ${className}`}
+        className={`rounded-[14px] border border-[#2C28260D] bg-[#FAF7F2] px-4 py-5 text-[18px] text-[#2C28264D] ${className}`}
       >
         {children}
       </div>

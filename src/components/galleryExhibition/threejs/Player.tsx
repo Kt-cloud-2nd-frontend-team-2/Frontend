@@ -3,9 +3,9 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 // import { ROOMSIZE, SPEED } from '@/config/galleryConfig';
 
-const ROOMSIZE = 50;
-const SPEED = 5;
-const HEIGHT = 3;
+export const ROOMSIZE = 15;
+export const SPEED = 5;
+export const HEIGHT = ROOMSIZE / 10;
 export default function Player() {
   const camera = useThree((s) => s.camera);
   const velocity = useRef(new THREE.Vector3());

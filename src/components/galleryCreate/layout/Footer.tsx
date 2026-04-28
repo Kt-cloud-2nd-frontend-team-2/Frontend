@@ -4,16 +4,14 @@ export default function Footer() {
   return (
     <div
       className={
-        'flex flex-col bg-[#2C2826] justify-center items-center  px-[55px] py-[48px] gap-10'
+        'flex flex-col items-center justify-center gap-10 bg-[#2C2826] px-[55px] py-[48px]'
       }
     >
       <div
-        className={
-          ' flex flex-col gap-10 md:flex-row w-full  md:justify-between'
-        }
+        className={'flex w-full flex-col gap-10 md:flex-row md:justify-between'}
       >
         <div className={'flex flex-col gap-3'}>
-          <div className={'flex  items-center gap-2'}>
+          <div className={'flex items-center gap-2'}>
             <Image
               src={'/HeaderLogo.png'}
               className={'object-cover'}
@@ -21,24 +19,24 @@ export default function Footer() {
               height={32}
               alt={'logo'}
             />
-            <p className={'text-[18px] font-bold text-white '}>스타아트</p>
+            <p className={'text-[18px] font-bold text-white'}>스타아트</p>
           </div>
-          <div className={'flex flex-col text-[14px] text-[#FFFFFF80] '}>
+          <div className={'flex flex-col text-[14px] text-[#FFFFFF80]'}>
             <p>아이들의 창작물을 진지한 작품으로,</p>
             <p>온라인 3D 가상 전시회 플랫폼</p>
           </div>
         </div>
         <div className={'flex gap-8'}>
           <div className={'flex flex-col gap-3'}>
-            <p className={'text-white text-[14px] font-bold'}>서비스</p>
-            <div className={'flex flex-col text-[14px] text-[#FFFFFF80] gap-2'}>
+            <p className={'text-[14px] font-bold text-white'}>서비스</p>
+            <div className={'flex flex-col gap-2 text-[14px] text-[#FFFFFF80]'}>
               <p>전체 전시회</p>
               <p>회원가입</p>
             </div>
           </div>
           <div className={'flex flex-col gap-3'}>
-            <p className={'text-white text-[14px] font-bold'}>안내</p>
-            <div className={'flex flex-col text-[14px] text-[#FFFFFF80] gap-2'}>
+            <p className={'text-[14px] font-bold text-white'}>안내</p>
+            <div className={'flex flex-col gap-2 text-[14px] text-[#FFFFFF80]'}>
               <p>서비스 소개</p>
               <p>이용약관</p>
               <p>문의하기</p>
@@ -48,10 +46,10 @@ export default function Footer() {
       </div>
       <div
         className={
-          'w-full h-[41px]  border-t border-[#FFFFFF1A] flex justify-center items-end'
+          'flex h-[41px] w-full items-end justify-center border-t border-[#FFFFFF1A]'
         }
       >
-        <p className={'text-[#FFFFFF80] text-[12px] '}>
+        <p className={'text-[12px] text-[#FFFFFF80]'}>
           © 2026 StarArt (스타아트). All rights reserved.
         </p>
       </div>

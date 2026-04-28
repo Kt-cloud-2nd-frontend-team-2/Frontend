@@ -7,7 +7,7 @@ export default function GalleryLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className={'flex flex-col w-full  min-h-screen bg-[#FAF7F2]'}>
+    <div className={'flex min-h-screen w-full flex-col bg-[#FAF7F2]'}>
       <Header />
       {children}
       <Footer />

@@ -35,31 +35,29 @@ export default function GalleryCreatePage() {
 
   return (
     <>
-      <div
-        className={'flex flex-col items-center py-[40px] px-[20px]  w-full '}
-      >
-        <div className={' flex flex-col gap-[32px] max-w-[576px] w-full'}>
-          <div className={'flex justify-between items-center'}>
-            <div className={'flex flex-col gap-1 '}>
-              <p className={'font-bold text-[28px] text-[#2C2826]'}>
+      <div className={'flex w-full flex-col items-center px-[20px] py-[40px]'}>
+        <div className={'flex w-full max-w-[576px] flex-col gap-[32px]'}>
+          <div className={'flex items-center justify-between'}>
+            <div className={'flex flex-col gap-1'}>
+              <p className={'text-[28px] font-bold text-[#2C2826]'}>
                 새 전시회 만들기
               </p>
-              <p className={'text-[#2C282680] text-[14px]'}>
+              <p className={'text-[14px] text-[#2C282680]'}>
                 해피아트 미술학원
               </p>
             </div>
             <div
               className={
-                'w-10 h-10  border border-[#2C282614] bg-white rounded-[14px] flex hover:text-black hover:font-bold text-[#2C282680] duration-200 cursor-pointer'
+                'flex h-10 w-10 cursor-pointer rounded-[14px] border border-[#2C282614] bg-white text-[#2C282680] duration-200 hover:font-bold hover:text-black'
               }
             >
-              <IoClose className={'text-3xl m-auto'} />
+              <IoClose className={'m-auto text-3xl'} />
             </div>
           </div>
           <form onSubmit={handleSubmit(submitHandler)}>
             <div
               className={
-                ' bg-white w-full  flex flex-col gap-6 p-[33px] rounded-[24px] border border-[#2C28260D] shadow-sm'
+                'flex w-full flex-col gap-6 rounded-[24px] border border-[#2C28260D] bg-white p-[33px] shadow-sm'
               }
             >
               <CreateGalleryFormWrapper
@@ -69,7 +67,7 @@ export default function GalleryCreatePage() {
               >
                 <input
                   {...register('galleryName', { required: true })}
-                  className={'outline-none w-full bg-transparent'}
+                  className={'w-full bg-transparent outline-none'}
                   placeholder={'예: 봄의 소리전, 상상화전...'}
                 />
               </CreateGalleryFormWrapper>
@@ -83,7 +81,7 @@ export default function GalleryCreatePage() {
                   {...register('galleryDesc', { required: true })}
                   placeholder={'전시회에 대한 소개를 작성해주세요...'}
                   className={
-                    'text-[16px]  outline-none w-full bg-transparent resize-none '
+                    'w-full resize-none bg-transparent text-[16px] outline-none'
                   }
                 />
               </CreateGalleryFormWrapper>
@@ -94,7 +92,7 @@ export default function GalleryCreatePage() {
                 render={({ field }) => (
                   <>
                     <CreateGalleryFormWrapper
-                      className={'border-dashed border-2'}
+                      className={'border-2 border-dashed'}
                       title={'배경 이미지'}
                       icon={'/createGallery/galleryImg.png'}
                     >
@@ -103,13 +101,13 @@ export default function GalleryCreatePage() {
                         onChange={field.onChange}
                       />
                     </CreateGalleryFormWrapper>
-                    <p className="text-[12px] text-[#2C28264D] -mt-5">
+                    <p className="-mt-5 text-[12px] text-[#2C28264D]">
                       전시회 상세 페이지 및 리스트에 표시되는 대표 이미지입니다
                     </p>
                   </>
                 )}
               />
-              <div className={'flex w-full  gap-4'}>
+              <div className={'flex w-full gap-4'}>
                 <div className={'flex-1'}>
                   <CreateGalleryFormWrapper
                     title={'시작일'}
@@ -120,7 +118,7 @@ export default function GalleryCreatePage() {
                     <input
                       {...register('startDate', { required: true })}
                       className={
-                        '  text-[16px]   text-black font-bold outline-none w-full bg-transparent '
+                        'w-full bg-transparent text-[16px] font-bold text-black outline-none'
                       }
                       type={'date'}
                     />
@@ -141,30 +139,30 @@ export default function GalleryCreatePage() {
                         },
                       })}
                       className={
-                        '  text-[16px]  text-black font-bold outline-none w-full bg-transparent '
+                        'w-full bg-transparent text-[16px] font-bold text-black outline-none'
                       }
                       type={'date'}
                     />
                   </CreateGalleryFormWrapper>
                   {errors.endDate && (
-                    <p className={'text-sm text-red-500 '}>
+                    <p className={'text-sm text-red-500'}>
                       *종료일은 시작일 이후여야 합니다.
                     </p>
                   )}
                 </div>
               </div>
-              <div className={'flex gap-3 h-14 '}>
+              <div className={'flex h-14 gap-3'}>
                 <button
                   type="submit"
                   disabled={!isValid}
-                  className={`bg-[#F4B942] flex-1 text-[16px] font-bold text-white disabled:opacity-40 rounded-[16px]`}
+                  className={`flex-1 rounded-[16px] bg-[#F4B942] text-[16px] font-bold text-white disabled:opacity-40`}
                 >
                   다음: 작품 등록하기
-                  <FaArrowRight className={'inline m-auto text-sm'} />
+                  <FaArrowRight className={'m-auto inline text-sm'} />
                 </button>
                 <button
                   className={
-                    'px-6 rounded-[14px] text-[#2C28264D] text-[16px] bg-[#FAF7F2] border  border-[#2C28260D]'
+                    'rounded-[14px] border border-[#2C28260D] bg-[#FAF7F2] px-6 text-[16px] text-[#2C28264D]'
                   }
                 >
                   취소

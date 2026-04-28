@@ -27,12 +27,12 @@ export default function ImageUpload({
     <div className="flex flex-col gap-1">
       <div
         onClick={handleClick}
-        className="flex items-center justify-center cursor-pointer overflow-hidden"
+        className="flex cursor-pointer items-center justify-center overflow-hidden"
       >
         {preview ? (
-          <img src={preview} className="w-full h-full object-contain" />
+          <img src={preview} className="h-full w-full object-contain" />
         ) : (
-          <div className="flex flex-col py-6 items-center gap-2 text-[#2C28264D]">
+          <div className="flex flex-col items-center gap-2 py-6 text-[#2C28264D]">
             <Image
               src="/createGallery/imgUploadIcon.png"
               alt="uploadIcon"
