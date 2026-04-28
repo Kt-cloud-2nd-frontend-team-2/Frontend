@@ -40,5 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# idea
+# 특정 개발도구 설정파일
 .idea/
