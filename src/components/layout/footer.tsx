@@ -6,7 +6,7 @@ const footerLinks = [
     title: '서비스',
     links: [
       { label: '전체 전시회', href: '/' },
-      { label: '회원가입', href: '/' },
+      { label: '회원가입', href: '/signup' },
     ],
   },
   {
