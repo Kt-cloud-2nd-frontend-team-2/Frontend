@@ -47,10 +47,6 @@ export default function ImageUpload({
         )}
       </div>
 
-      <p className="text-[12px] text-[#2C28264D]">
-        전시회 상세 페이지 및 리스트에 표시되는 대표 이미지입니다
-      </p>
-
       <input
         ref={inputRef}
         type="file"

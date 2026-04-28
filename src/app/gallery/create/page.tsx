@@ -1,10 +1,9 @@
 'use client';
-import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Form } from '@base-ui/react';
+import { IoClose } from 'react-icons/io5';
 import ImageUpload from '@/components/galleryCreate/ImageUpload';
 import CreateGalleryFormWrapper from '@/components/galleryCreate/FormWrapper';
+import { FaArrowRight } from 'react-icons/fa';
 type FormProps = {
   galleryName: string;
   galleryDesc: string;
@@ -54,7 +53,7 @@ export default function GalleryCreatePage() {
                 'w-10 h-10  border border-[#2C282614] bg-white rounded-[14px] flex hover:text-black hover:font-bold text-[#2C282680] duration-200 cursor-pointer'
               }
             >
-              <p className={'m-auto text-[20px]  '}>x</p>
+              <IoClose className={'text-3xl m-auto'} />
             </div>
           </div>
           <form onSubmit={handleSubmit(submitHandler)}>
@@ -93,15 +92,21 @@ export default function GalleryCreatePage() {
                 name="galleryImg"
                 control={control}
                 render={({ field }) => (
-                  <CreateGalleryFormWrapper
-                    title={'배경 이미지'}
-                    icon={'/createGallery/galleryImg.png'}
-                  >
-                    <ImageUpload
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
-                  </CreateGalleryFormWrapper>
+                  <>
+                    <CreateGalleryFormWrapper
+                      className={'border-dashed border-2'}
+                      title={'배경 이미지'}
+                      icon={'/createGallery/galleryImg.png'}
+                    >
+                      <ImageUpload
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
+                    </CreateGalleryFormWrapper>
+                    <p className="text-[12px] text-[#2C28264D] -mt-5">
+                      전시회 상세 페이지 및 리스트에 표시되는 대표 이미지입니다
+                    </p>
+                  </>
                 )}
               />
               <div className={'flex w-full  gap-4'}>
@@ -155,6 +160,7 @@ export default function GalleryCreatePage() {
                   className={`bg-[#F4B942] flex-1 text-[16px] font-bold text-white disabled:opacity-40 rounded-[16px]`}
                 >
                   다음: 작품 등록하기
+                  <FaArrowRight className={'inline m-auto text-sm'} />
                 </button>
                 <button
                   className={
