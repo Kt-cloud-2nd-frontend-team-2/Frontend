@@ -92,7 +92,7 @@ export default function GalleryCreatePage() {
                 render={({ field }) => (
                   <>
                     <CreateGalleryFormWrapper
-                      className={'border-2 border-dashed'}
+                      className={'overflow-hidden border-2 border-dashed p-0!'}
                       title={'배경 이미지'}
                       icon={'/createGallery/galleryImg.png'}
                     >

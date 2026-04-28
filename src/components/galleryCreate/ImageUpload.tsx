@@ -30,7 +30,9 @@ export default function ImageUpload({
         className="flex cursor-pointer items-center justify-center overflow-hidden"
       >
         {preview ? (
-          <img src={preview} className="h-full w-full object-contain" />
+          <div className="relative h-[300px] w-[510px]">
+            <Image src={preview} alt="preview" fill className="object-cover" />
+          </div>
         ) : (
           <div className="flex flex-col items-center gap-2 py-6 text-[#2C28264D]">
             <Image
