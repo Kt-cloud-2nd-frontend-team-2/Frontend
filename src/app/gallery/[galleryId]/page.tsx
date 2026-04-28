@@ -1,6 +1,7 @@
 'use client';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Scene from '@/components/galleryExhibition/threejs/Scene';
 
 export default function GalleryExhibitionPage() {
   const { galleryId } = useParams();
@@ -9,6 +10,7 @@ export default function GalleryExhibitionPage() {
   useEffect(() => {
     console.log(galleryId);
     const fetchInit = async () => {
+      //서비스 레이어로 뺼예정
       try {
         const res = await fetch('/');
         if (!res.ok) {
@@ -22,4 +24,9 @@ export default function GalleryExhibitionPage() {
       }
     };
   }, []);
+  return (
+    <div className={'h-[100dvh]'}>
+      <Scene />
+    </div>
+  );
 }
