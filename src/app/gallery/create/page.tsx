@@ -142,7 +142,7 @@ export default function GalleryCreatePage() {
                     />
                   </CreateGalleryFormWrapper>
                   {errors.endDate && (
-                    <p className={'text-sm text-red-500'}>
+                    <p className={'text-sm text-red-500 '}>
                       *종료일은 시작일 이후여야 합니다.
                     </p>
                   )}
