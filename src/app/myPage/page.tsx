@@ -1,5 +1,12 @@
-import { redirect } from 'next/navigation';
+import MyPageScreen from '@/components/myPage/MyPageScreen';
+import { teacherProfile, userProfile } from '@/components/myPage/mockData';
 
-export default function MyPageIndexPage() {
-  redirect('/myPage/teacher');
+export default function MyPage() {
+  return (
+    <>
+      <MyPageScreen profile={teacherProfile} currentRole="teacher" />
+
+      <MyPageScreen profile={userProfile} currentRole="user" />
+    </>
+  );
 }
