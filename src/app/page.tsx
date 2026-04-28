@@ -1,65 +1,104 @@
+import { Search, Sparkles } from 'lucide-react';
 import Image from 'next/image';
+import { ExhibitionList } from '@/components/exhibition/exhibitionList';
+import type { ExhibitionProps } from '@/components/exhibition/exhibitionCard';
+
+const exhibitions: ExhibitionProps[] = [
+  {
+    id: '1',
+    title: '여름 날씨전',
+    host: '해피아트 미술학원',
+    image: '/images/sample_thumb.png',
+    startDate: '2026-05-28',
+    likes: 0,
+  },
+  {
+    id: '2',
+    title: '사계절 이야기',
+    host: '해피아트 미술학원',
+    image: '/images/sample_thumb.png',
+    startDate: '2026-04-01',
+    endDate: '2026-04-30',
+    likes: 45,
+  },
+  {
+    id: '3',
+    title: '봄의 소리전',
+    host: '해피아트 미술학원',
+    image: '/images/sample_thumb.png',
+    startDate: '2026-03-01',
+    endDate: '2026-05-31',
+    likes: 128,
+  },
+  {
+    id: '4',
+    title: '겨울 풍경전',
+    host: '꿈나무 창작학원',
+    image: '/images/sample_thumb.png',
+    startDate: '2025-12-01',
+    endDate: '2026-02-28',
+    likes: 312,
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex w-full max-w-3xl flex-1 flex-col items-center justify-between bg-white px-16 py-32 sm:items-start dark:bg-black">
+    <main className="bg-[#FAF7F2]">
+      {/* hero section */}
+      <section className="relative isolate">
+        {/* gradation bg image */}
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src="/images/main_hero_bg.png"
+          alt=""
+          width={920}
+          height={425}
           priority
+          className="absolute top-0 left-1/2 -z-10 h-auto w-[60%] -translate-x-1/2"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl leading-10 font-semibold tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{' '}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+        <div className="mx-auto max-w-6xl px-3.5 py-20 text-center">
+          {/* hero title, text */}
+          <div className="flex flex-col items-center gap-6">
+            <span className="bg-primary/15 text-primary inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium">
+              <Sparkles className="h-4 w-4" />
+              아이들의 꿈이 예술이 되는 곳
+            </span>
+            <h2 className="text-secondary text-4xl leading-tight font-bold md:text-5xl">
+              아이들의 첫 미술전,
+              <br />
+              시작은 <span className="text-primary">스타아트</span>와 함께
+            </h2>
+            <p className="text-secondary/60 text-base leading-relaxed">
+              미술 학원 선생님이 주최하는 아이들의 작품 전시회를
+              <br />
+              3D 가상 갤러리에서 자유롭게 관람하세요
+            </p>
+          </div>
+
+          {/* search form */}
+          <div className="mt-8 flex justify-center">
+            <form
+              role="search"
+              className="mt-6 flex w-full max-w-xl items-center gap-3 rounded-xl bg-white p-5 shadow-[0_2px_12px_rgba(44,40,38,0.06)]"
             >
-              Templates
-            </a>{' '}
-            or the{' '}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{' '}
-            center.
-          </p>
+              <Search className="text-secondary/40 h-5 w-5 shrink-0" />
+              <input
+                type="search"
+                placeholder="전시회 이름, 교육기관 검색..."
+                className="text-secondary placeholder:text-secondary/40 w-full bg-transparent text-sm focus:outline-none"
+              />
+            </form>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="bg-foreground text-background flex h-12 w-full items-center justify-center gap-2 rounded-full px-5 transition-colors hover:bg-[#383838] md:w-[158px] dark:hover:bg-[#ccc]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] md:w-[158px] dark:border-white/[.145] dark:hover:bg-[#1a1a1a]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+      {/* // hero section */}
+      <div className="mx-auto max-w-6xl px-3.5 pb-20">
+        <ExhibitionList
+          exhibitions={exhibitions}
+          isLoggedIn
+          isTeacher
+          currentHost="해피아트 미술학원"
+        />
+      </div>
+    </main>
   );
 }
