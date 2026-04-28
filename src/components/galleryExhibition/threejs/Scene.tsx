@@ -57,19 +57,56 @@ export default function Scene() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/15 backdrop-blur-xs">
           <div
             className={
-              'h-[635px] w-[672px] overflow-hidden rounded-3xl bg-white'
+              'h-[635px] w-[672px] overflow-hidden rounded-3xl border border-white bg-white'
             }
           >
-            <div className={'relative h-[445px] w-full'}>
+            <div className={'relative m-0 h-[445px] w-full'}>
               <Image
                 src={'/createGallery/paint.png'}
                 fill
-                className={'absolute object-contain'}
+                className={'absolute object-cover'}
                 alt={'error'}
               />
             </div>
-            <button onClick={() => setIsModalOpen(null)}>닫기</button>
-            <p>{isModalOpen}</p>
+
+            <div className={'flex flex-col gap-3 p-6'}>
+              <p className={'text-[20px] font-bold'}>바다의 노래</p>
+              <p className={'text-secondary text-[14px] opacity-50'}>
+                작가 : 최지민{' '}
+              </p>
+              <p className={'text-secondary text-[14px] opacity-60'}>
+                제주도 여행에서 바라본 에메랄드빛 바다를 담았습니다. 파도 소리가
+                들리는 것 같은 그림을 그리고 싶었어요.
+              </p>
+              <div className={'flex items-center justify-between'}>
+                <div className={'flex gap-2'}>
+                  <div
+                    className={
+                      'bg-primary h-[30px] w-[30px] rounded-full opacity-10'
+                    }
+                  ></div>
+                  <div
+                    className={
+                      'bg-primary h-[30px] w-[30px] rounded-full opacity-10'
+                    }
+                  >
+                    <div
+                      className={
+                        'z-50 m-auto h-[16px] w-[15px] bg-black opacity-0!'
+                      }
+                    ></div>
+                  </div>
+                  <div
+                    className={
+                      'bg-primary h-[30px] w-[30px] rounded-full opacity-10'
+                    }
+                  ></div>
+                </div>
+                <p className={'text-secondary text-[12px] opacity-30'}>
+                  로그인 후 좋아요/저장 가능
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       )}
