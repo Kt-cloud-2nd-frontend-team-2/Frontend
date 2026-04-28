@@ -68,12 +68,12 @@ function PaintingDetailsModal({ paintingNumber }: { paintingNumber: number }) {
         }
       >
         <div className={'relative m-0 h-[445px] w-full'}>
-          <Image
-            src={'/createGallery/paint.png'}
-            fill
-            className={'absolute object-cover'}
-            alt={'error'}
-          />
+          {/*<Image*/}
+          {/*  src={'/createGallery/paint.png'}*/}
+          {/*  fill*/}
+          {/*  className={'absolute object-cover'}*/}
+          {/*  alt={'error'}*/}
+          {/*/>*/}
         </div>
 
         <div className={'flex flex-col gap-3 p-6'}>
