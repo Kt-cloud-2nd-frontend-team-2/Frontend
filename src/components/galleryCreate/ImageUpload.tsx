@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import Image from 'next/image';
-
+import { ImagePlus } from 'lucide-react';
 export default function ImageUpload({
   value,
   onChange,
@@ -35,12 +35,7 @@ export default function ImageUpload({
           </div>
         ) : (
           <div className="text-secondary/40 flex flex-col items-center gap-2 py-6">
-            <Image
-              src="/createGallery/imgUploadIcon.png"
-              alt="uploadIcon"
-              width={40}
-              height={40}
-            />
+            <ImagePlus className={'text-secondary/30 h-8 w-8'} />
             <p className="text-[14px]">
               클릭하거나 이미지를 드래그해서 올려주세요.
             </p>
