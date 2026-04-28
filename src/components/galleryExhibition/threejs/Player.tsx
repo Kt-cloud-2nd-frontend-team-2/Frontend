@@ -1,13 +1,11 @@
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-// import { ROOMSIZE, SPEED } from '@/config/galleryConfig';
 
 export const ROOMSIZE = 15;
 export const SPEED = 5;
 export const HEIGHT = ROOMSIZE / 10;
 export default function Player() {
-  const camera = useThree((s) => s.camera);
   const velocity = useRef(new THREE.Vector3());
   const direction = useRef(new THREE.Vector3());
 
@@ -53,7 +51,6 @@ export default function Player() {
       window.removeEventListener('keyup', up);
     };
   }, []);
-
   useFrame((state, delta) => {
     direction.current.set(0, 0, 0);
 
@@ -66,21 +63,27 @@ export default function Player() {
 
     velocity.current.x = direction.current.x * speed * delta;
     velocity.current.z = direction.current.z * speed * delta;
-    // console.log(velocity.current.x, velocity.current.z)
-    camera.getWorldDirection(forward.current);
 
+    const camera = state.camera;
+
+    camera.getWorldDirection(forward.current);
     right.current.crossVectors(camera.up, forward.current).normalize();
 
-    camera.position.addScaledVector(forward.current, -velocity.current.z);
-    camera.position.addScaledVector(right.current, velocity.current.x);
+    const newX =
+      camera.position.x +
+      right.current.x * velocity.current.x -
+      forward.current.x * velocity.current.z;
 
-    // 바닥 높이 고정
-    camera.position.y = HEIGHT;
+    const newZ =
+      camera.position.z +
+      right.current.z * velocity.current.x -
+      forward.current.z * velocity.current.z;
 
-    // 충돌 (벽)
-    camera.position.x = THREE.MathUtils.clamp(camera.position.x, -limit, limit);
-    camera.position.z = THREE.MathUtils.clamp(camera.position.z, -limit, limit);
+    camera.position.set(
+      THREE.MathUtils.clamp(newX, -limit, limit),
+      HEIGHT,
+      THREE.MathUtils.clamp(newZ, -limit, limit)
+    );
   });
-
   return <>{/*<pointLight position={[0,2,0]} intensity={10} />*/}</>;
 }
