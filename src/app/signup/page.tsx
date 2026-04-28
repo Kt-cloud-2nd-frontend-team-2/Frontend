@@ -27,22 +27,33 @@ export default function SignupPage() {
         {/* Logo + Title */}
         <div className="mb-8 flex flex-col items-center gap-3">
           <div className="flex items-center gap-3">
-            <Image src="/images/logo.svg" alt="스타아트 로고" width={40} height={40} />
-            <span className="text-[20px] font-bold text-secondary">스타아트</span>
+            <Image
+              src="/images/logo.svg"
+              alt="스타아트 로고"
+              width={40}
+              height={40}
+            />
+            <span className="text-secondary text-[20px] font-bold">
+              스타아트
+            </span>
           </div>
-          <h1 className="mt-2 text-[28px] font-bold text-secondary">회원가입</h1>
-          <p className="text-[14px] text-secondary/50">계정 유형을 선택하고 가입해보세요</p>
+          <h1 className="text-secondary mt-2 text-[28px] font-bold">
+            회원가입
+          </h1>
+          <p className="text-secondary/50 text-[14px]">
+            계정 유형을 선택하고 가입해보세요
+          </p>
         </div>
 
         {/* Form Card */}
-        <div className="rounded-3xl border border-secondary/5 bg-white p-8 pb-9 shadow-[0px_20px_25px_0px_rgba(0,0,0,0.1),0px_8px_10px_0px_rgba(0,0,0,0.1)]">
+        <div className="border-secondary/5 rounded-3xl border bg-white p-8 pb-9 shadow-[0px_20px_25px_0px_rgba(0,0,0,0.1),0px_8px_10px_0px_rgba(0,0,0,0.1)]">
           {/* Tab Switcher */}
           <div className="mb-6 flex rounded-2xl bg-[#faf7f2] p-1">
             <button
               onClick={() => setUserType('general')}
               className={`h-10 flex-1 rounded-[14px] text-[14px] font-medium transition-all ${
                 userType === 'general'
-                  ? 'bg-white text-secondary shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)]'
+                  ? 'text-secondary bg-white shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)]'
                   : 'text-secondary/50'
               }`}
             >
@@ -52,7 +63,7 @@ export default function SignupPage() {
               onClick={() => setUserType('teacher')}
               className={`h-10 flex-1 rounded-[14px] text-[14px] font-medium transition-all ${
                 userType === 'teacher'
-                  ? 'bg-white text-secondary shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)]'
+                  ? 'text-secondary bg-white shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)]'
                   : 'text-secondary/50'
               }`}
             >
@@ -64,36 +75,40 @@ export default function SignupPage() {
           <div className="flex flex-col gap-6">
             {/* 이름 */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[14px] font-medium text-secondary">이름</label>
+              <label className="text-secondary text-[14px] font-medium">
+                이름
+              </label>
               <div className="relative">
-                <div className="absolute top-1/2 left-3.5 -translate-y-1/2 text-secondary/40">
+                <div className="text-secondary/40 absolute top-1/2 left-3.5 -translate-y-1/2">
                   <User className="h-3.75 w-3.75" />
                 </div>
                 <input
                   type="text"
                   placeholder="이름을 입력하세요"
-                  className="h-12.5 w-full rounded-[14px] border border-secondary/5 bg-[#faf7f2] pr-4 pl-10 text-[16px] text-secondary transition-all outline-none placeholder:text-secondary/30 focus:border-primary/40 focus:ring-2 focus:ring-primary/30"
+                  className="border-secondary/5 text-secondary placeholder:text-secondary/30 focus:border-primary/40 focus:ring-primary/30 h-12.5 w-full rounded-[14px] border bg-[#faf7f2] pr-4 pl-10 text-[16px] transition-all outline-none focus:ring-2"
                 />
               </div>
             </div>
 
             {/* 이메일 */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[14px] font-medium text-secondary">이메일</label>
+              <label className="text-secondary text-[14px] font-medium">
+                이메일
+              </label>
               <div className="flex gap-2">
                 <div className="relative flex-1">
-                  <div className="absolute top-1/2 left-3.5 -translate-y-1/2 text-secondary/40">
+                  <div className="text-secondary/40 absolute top-1/2 left-3.5 -translate-y-1/2">
                     <Mail className="h-3.75 w-3.75" />
                   </div>
                   <input
                     type="email"
                     placeholder="example@email.com"
-                    className="h-12.5 w-full rounded-[14px] border border-secondary/5 bg-[#faf7f2] pr-4 pl-10 text-[16px] text-secondary transition-all outline-none placeholder:text-secondary/30 focus:border-primary/40 focus:ring-2 focus:ring-primary/30"
+                    className="border-secondary/5 text-secondary placeholder:text-secondary/30 focus:border-primary/40 focus:ring-primary/30 h-12.5 w-full rounded-[14px] border bg-[#faf7f2] pr-4 pl-10 text-[16px] transition-all outline-none focus:ring-2"
                   />
                 </div>
                 <button
                   onClick={() => setEmailSent(true)}
-                  className="h-12.5 rounded-[14px] bg-primary/10 px-4 text-[14px] font-medium whitespace-nowrap text-primary transition-colors hover:bg-primary/20"
+                  className="bg-primary/10 text-primary hover:bg-primary/20 h-12.5 rounded-[14px] px-4 text-[14px] font-medium whitespace-nowrap transition-colors"
                 >
                   {emailSent ? '재발송' : '인증발송'}
                 </button>
@@ -103,14 +118,16 @@ export default function SignupPage() {
             {/* 인증번호 */}
             {emailSent && (
               <div className="flex flex-col gap-1.5">
-                <label className="text-[14px] font-medium text-secondary">인증번호</label>
+                <label className="text-secondary text-[14px] font-medium">
+                  인증번호
+                </label>
                 <div className="flex items-center gap-2">
                   <input
                     type="text"
                     inputMode="numeric"
                     maxLength={6}
                     placeholder="인증번호 6자리 입력"
-                    className="h-12.5 flex-1 rounded-[14px] border border-secondary/5 bg-[#faf7f2] px-4 text-[16px] text-secondary transition-all outline-none placeholder:text-secondary/30 focus:border-primary/40 focus:ring-2 focus:ring-primary/30"
+                    className="border-secondary/5 text-secondary placeholder:text-secondary/30 focus:border-primary/40 focus:ring-primary/30 h-12.5 flex-1 rounded-[14px] border bg-[#faf7f2] px-4 text-[16px] transition-all outline-none focus:ring-2"
                   />
                   <div className="flex shrink-0 items-center gap-1">
                     <CheckCircle className="h-3.5 w-3.5 text-[#00c950]" />
@@ -122,20 +139,22 @@ export default function SignupPage() {
 
             {/* 비밀번호 */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[14px] font-medium text-secondary">비밀번호</label>
+              <label className="text-secondary text-[14px] font-medium">
+                비밀번호
+              </label>
               <div className="relative">
-                <div className="absolute top-1/2 left-3.5 -translate-y-1/2 text-secondary/40">
+                <div className="text-secondary/40 absolute top-1/2 left-3.5 -translate-y-1/2">
                   <Lock className="h-3.75 w-3.75" />
                 </div>
                 <input
                   type={showPassword ? 'text' : 'password'}
                   placeholder="6자 이상"
-                  className="h-12.5 w-full rounded-[14px] border border-secondary/5 bg-[#faf7f2] pr-12 pl-10 text-[16px] text-secondary transition-all outline-none placeholder:text-secondary/30 focus:border-primary/40 focus:ring-2 focus:ring-primary/30"
+                  className="border-secondary/5 text-secondary placeholder:text-secondary/30 focus:border-primary/40 focus:ring-primary/30 h-12.5 w-full rounded-[14px] border bg-[#faf7f2] pr-12 pl-10 text-[16px] transition-all outline-none focus:ring-2"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute top-1/2 right-3.5 -translate-y-1/2 text-secondary/40 transition-colors hover:text-secondary/70"
+                  className="text-secondary/40 hover:text-secondary/70 absolute top-1/2 right-3.5 -translate-y-1/2 transition-colors"
                 >
                   {showPassword ? (
                     <EyeOff className="h-3.75 w-3.75" />
@@ -148,20 +167,22 @@ export default function SignupPage() {
 
             {/* 비밀번호 확인 */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[14px] font-medium text-secondary">비밀번호 확인</label>
+              <label className="text-secondary text-[14px] font-medium">
+                비밀번호 확인
+              </label>
               <div className="relative">
-                <div className="absolute top-1/2 left-3.5 -translate-y-1/2 text-secondary/40">
+                <div className="text-secondary/40 absolute top-1/2 left-3.5 -translate-y-1/2">
                   <Lock className="h-3.75 w-3.75" />
                 </div>
                 <input
                   type={showConfirmPassword ? 'text' : 'password'}
                   placeholder="비밀번호 재입력"
-                  className="h-12.5 w-full rounded-[14px] border border-secondary/5 bg-[#faf7f2] pr-12 pl-10 text-[16px] text-secondary transition-all outline-none placeholder:text-secondary/30 focus:border-primary/40 focus:ring-2 focus:ring-primary/30"
+                  className="border-secondary/5 text-secondary placeholder:text-secondary/30 focus:border-primary/40 focus:ring-primary/30 h-12.5 w-full rounded-[14px] border bg-[#faf7f2] pr-12 pl-10 text-[16px] transition-all outline-none focus:ring-2"
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute top-1/2 right-3.5 -translate-y-1/2 text-secondary/40 transition-colors hover:text-secondary/70"
+                  className="text-secondary/40 hover:text-secondary/70 absolute top-1/2 right-3.5 -translate-y-1/2 transition-colors"
                 >
                   {showConfirmPassword ? (
                     <EyeOff className="h-3.75 w-3.75" />
@@ -182,26 +203,30 @@ export default function SignupPage() {
                 <div className="flex flex-col gap-6">
                   {/* 교육기관명 */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[14px] font-medium text-secondary">교육기관명</label>
+                    <label className="text-secondary text-[14px] font-medium">
+                      교육기관명
+                    </label>
                     <div className="relative">
-                      <div className="absolute top-1/2 left-3.5 -translate-y-1/2 text-secondary/40">
+                      <div className="text-secondary/40 absolute top-1/2 left-3.5 -translate-y-1/2">
                         <Building2 className="h-3.75 w-3.75" />
                       </div>
                       <input
                         type="text"
                         placeholder="학원 / 학교명"
-                        className="h-12.5 w-full rounded-[14px] border border-secondary/5 bg-[#faf7f2] pr-4 pl-10 text-[16px] text-secondary transition-all outline-none placeholder:text-secondary/30 focus:border-primary/40 focus:ring-2 focus:ring-primary/30"
+                        className="border-secondary/5 text-secondary placeholder:text-secondary/30 focus:border-primary/40 focus:ring-primary/30 h-12.5 w-full rounded-[14px] border bg-[#faf7f2] pr-4 pl-10 text-[16px] transition-all outline-none focus:ring-2"
                       />
                     </div>
                   </div>
 
                   {/* 사용 목적 */}
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[14px] font-medium text-secondary">사용 목적</label>
+                    <label className="text-secondary text-[14px] font-medium">
+                      사용 목적
+                    </label>
                     <textarea
                       placeholder="사용 목적을 간략하게 작성해주세요"
                       rows={4}
-                      className="w-full resize-none rounded-[14px] border border-secondary/5 bg-[#faf7f2] px-4 py-3 text-[16px] leading-6 text-secondary transition-all outline-none placeholder:text-secondary/30 focus:border-primary/40 focus:ring-2 focus:ring-primary/30"
+                      className="border-secondary/5 text-secondary placeholder:text-secondary/30 focus:border-primary/40 focus:ring-primary/30 w-full resize-none rounded-[14px] border bg-[#faf7f2] px-4 py-3 text-[16px] leading-6 transition-all outline-none focus:ring-2"
                     />
                   </div>
                 </div>
@@ -209,14 +234,17 @@ export default function SignupPage() {
             </div>
 
             {/* 회원가입 버튼 */}
-            <button className="mt-2 h-13 w-full rounded-[14px] bg-primary text-[16px] font-semibold text-white shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)] transition-all hover:bg-[#e5aa35] active:scale-[0.99]">
+            <button className="bg-primary mt-2 h-13 w-full rounded-[14px] text-[16px] font-semibold text-white shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)] transition-all hover:bg-[#e5aa35] active:scale-[0.99]">
               회원가입 완료
             </button>
 
             {/* 로그인 링크 */}
-            <p className="text-center text-[14px] text-secondary/50">
+            <p className="text-secondary/50 text-center text-[14px]">
               이미 계정이 있으신가요?{' '}
-              <Link href="/login" className="font-medium text-primary hover:underline">
+              <Link
+                href="/login"
+                className="text-primary font-medium hover:underline"
+              >
                 로그인
               </Link>
             </p>
