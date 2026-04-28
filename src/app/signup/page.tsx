@@ -22,14 +22,14 @@ export default function SignupPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#faf7f2] flex flex-col font-sans">
+    <div className="flex min-h-screen flex-col bg-[#faf7f2] font-sans">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 h-16 bg-[rgba(250,247,242,0.95)] border-b border-[rgba(44,40,38,0.08)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)] backdrop-blur-sm">
-        <div className="max-w-304 mx-auto px-14 h-full flex items-center justify-between">
+      <header className="fixed top-0 right-0 left-0 z-50 h-16 border-b border-[rgba(44,40,38,0.08)] bg-[rgba(250,247,242,0.95)] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)] backdrop-blur-sm">
+        <div className="mx-auto flex h-full max-w-304 items-center justify-between px-14">
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-[#f4b942] rounded-[14px] flex items-center justify-center">
-                <Star className="w-4 h-4 text-white fill-white" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[#f4b942]">
+                <Star className="h-4 w-4 fill-white text-white" />
               </div>
               <span className="text-[18px] font-bold text-[#2c2826]">
                 스타아트
@@ -37,7 +37,7 @@ export default function SignupPage() {
             </Link>
             <Link
               href="/exhibitions"
-              className="text-[14px] text-[rgba(44,40,38,0.6)] hover:text-[#2c2826] transition-colors"
+              className="text-[14px] text-[rgba(44,40,38,0.6)] transition-colors hover:text-[#2c2826]"
             >
               전체 전시회
             </Link>
@@ -45,13 +45,13 @@ export default function SignupPage() {
           <div className="flex items-center gap-2">
             <Link
               href="/login"
-              className="h-9 px-4 flex items-center text-[14px] text-[#2c2826] rounded-[14px] hover:bg-[rgba(44,40,38,0.05)] transition-colors"
+              className="flex h-9 items-center rounded-[14px] px-4 text-[14px] text-[#2c2826] transition-colors hover:bg-[rgba(44,40,38,0.05)]"
             >
               로그인
             </Link>
             <Link
               href="/signup"
-              className="h-9 px-4 flex items-center text-[14px] text-white bg-[#f4b942] rounded-[14px] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)] hover:bg-[#e5aa35] transition-colors"
+              className="flex h-9 items-center rounded-[14px] bg-[#f4b942] px-4 text-[14px] text-white shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)] transition-colors hover:bg-[#e5aa35]"
             >
               회원가입
             </Link>
@@ -60,19 +60,19 @@ export default function SignupPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex items-center justify-center px-4 pt-28 pb-12">
+      <main className="flex flex-1 items-center justify-center px-4 pt-28 pb-12">
         <div className="w-full max-w-lg">
           {/* Logo + Title */}
-          <div className="flex flex-col items-center gap-3 mb-8">
+          <div className="mb-8 flex flex-col items-center gap-3">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#f4b942] rounded-2xl flex items-center justify-center">
-                <Star className="w-4.5 h-4.5 text-white fill-white" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#f4b942]">
+                <Star className="h-4.5 w-4.5 fill-white text-white" />
               </div>
               <span className="text-[20px] font-bold text-[#2c2826]">
                 스타아트
               </span>
             </div>
-            <h1 className="text-[28px] font-bold text-[#2c2826] mt-2">
+            <h1 className="mt-2 text-[28px] font-bold text-[#2c2826]">
               회원가입
             </h1>
             <p className="text-[14px] text-[rgba(44,40,38,0.5)]">
@@ -81,12 +81,12 @@ export default function SignupPage() {
           </div>
 
           {/* Form Card */}
-          <div className="bg-white rounded-3xl border border-[rgba(44,40,38,0.05)] shadow-[0px_20px_25px_0px_rgba(0,0,0,0.1),0px_8px_10px_0px_rgba(0,0,0,0.1)] p-8 pb-9">
+          <div className="rounded-3xl border border-[rgba(44,40,38,0.05)] bg-white p-8 pb-9 shadow-[0px_20px_25px_0px_rgba(0,0,0,0.1),0px_8px_10px_0px_rgba(0,0,0,0.1)]">
             {/* Tab Switcher */}
-            <div className="bg-[#faf7f2] rounded-2xl p-1 flex mb-6">
+            <div className="mb-6 flex rounded-2xl bg-[#faf7f2] p-1">
               <button
                 onClick={() => setUserType('general')}
-                className={`flex-1 h-10 rounded-[14px] text-[14px] font-medium transition-all ${
+                className={`h-10 flex-1 rounded-[14px] text-[14px] font-medium transition-all ${
                   userType === 'general'
                     ? 'bg-white text-[#2c2826] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)]'
                     : 'text-[rgba(44,40,38,0.5)]'
@@ -96,7 +96,7 @@ export default function SignupPage() {
               </button>
               <button
                 onClick={() => setUserType('teacher')}
-                className={`flex-1 h-10 rounded-[14px] text-[14px] font-medium transition-all ${
+                className={`h-10 flex-1 rounded-[14px] text-[14px] font-medium transition-all ${
                   userType === 'teacher'
                     ? 'bg-white text-[#2c2826] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)]'
                     : 'text-[rgba(44,40,38,0.5)]'
@@ -114,13 +114,13 @@ export default function SignupPage() {
                   이름
                 </label>
                 <div className="relative">
-                  <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[rgba(44,40,38,0.4)]">
-                    <User className="w-3.75 h-3.75" />
+                  <div className="absolute top-1/2 left-3.5 -translate-y-1/2 text-[rgba(44,40,38,0.4)]">
+                    <User className="h-3.75 w-3.75" />
                   </div>
                   <input
                     type="text"
                     placeholder="이름을 입력하세요"
-                    className="w-full h-12.5 bg-[#faf7f2] border border-[rgba(44,40,38,0.05)] rounded-[14px] pl-10 pr-4 text-[16px] text-[#2c2826] placeholder:text-[rgba(44,40,38,0.3)] outline-none focus:ring-2 focus:ring-[#f4b942]/30 focus:border-[#f4b942]/40 transition-all"
+                    className="h-12.5 w-full rounded-[14px] border border-[rgba(44,40,38,0.05)] bg-[#faf7f2] pr-4 pl-10 text-[16px] text-[#2c2826] transition-all outline-none placeholder:text-[rgba(44,40,38,0.3)] focus:border-[#f4b942]/40 focus:ring-2 focus:ring-[#f4b942]/30"
                   />
                 </div>
               </div>
@@ -132,18 +132,18 @@ export default function SignupPage() {
                 </label>
                 <div className="flex gap-2">
                   <div className="relative flex-1">
-                    <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[rgba(44,40,38,0.4)]">
-                      <Mail className="w-3.75 h-3.75" />
+                    <div className="absolute top-1/2 left-3.5 -translate-y-1/2 text-[rgba(44,40,38,0.4)]">
+                      <Mail className="h-3.75 w-3.75" />
                     </div>
                     <input
                       type="email"
                       placeholder="example@email.com"
-                      className="w-full h-12.5 bg-[#faf7f2] border border-[rgba(44,40,38,0.05)] rounded-[14px] pl-10 pr-4 text-[16px] text-[#2c2826] placeholder:text-[rgba(44,40,38,0.3)] outline-none focus:ring-2 focus:ring-[#f4b942]/30 focus:border-[#f4b942]/40 transition-all"
+                      className="h-12.5 w-full rounded-[14px] border border-[rgba(44,40,38,0.05)] bg-[#faf7f2] pr-4 pl-10 text-[16px] text-[#2c2826] transition-all outline-none placeholder:text-[rgba(44,40,38,0.3)] focus:border-[#f4b942]/40 focus:ring-2 focus:ring-[#f4b942]/30"
                     />
                   </div>
                   <button
                     onClick={() => setEmailSent(true)}
-                    className="h-12.5 px-4 bg-[rgba(244,185,66,0.1)] text-[#f4b942] text-[14px] font-medium rounded-[14px] whitespace-nowrap hover:bg-[rgba(244,185,66,0.2)] transition-colors"
+                    className="h-12.5 rounded-[14px] bg-[rgba(244,185,66,0.1)] px-4 text-[14px] font-medium whitespace-nowrap text-[#f4b942] transition-colors hover:bg-[rgba(244,185,66,0.2)]"
                   >
                     {emailSent ? '재발송' : '인증발송'}
                   </button>
@@ -162,10 +162,10 @@ export default function SignupPage() {
                       inputMode="numeric"
                       maxLength={6}
                       placeholder="인증번호 6자리 입력"
-                      className="flex-1 h-12.5 bg-[#faf7f2] border border-[rgba(44,40,38,0.05)] rounded-[14px] px-4 text-[16px] text-[#2c2826] placeholder:text-[rgba(44,40,38,0.3)] outline-none focus:ring-2 focus:ring-[#f4b942]/30 focus:border-[#f4b942]/40 transition-all"
+                      className="h-12.5 flex-1 rounded-[14px] border border-[rgba(44,40,38,0.05)] bg-[#faf7f2] px-4 text-[16px] text-[#2c2826] transition-all outline-none placeholder:text-[rgba(44,40,38,0.3)] focus:border-[#f4b942]/40 focus:ring-2 focus:ring-[#f4b942]/30"
                     />
-                    <div className="flex items-center gap-1 shrink-0">
-                      <CheckCircle className="w-3.5 h-3.5 text-[#00c950]" />
+                    <div className="flex shrink-0 items-center gap-1">
+                      <CheckCircle className="h-3.5 w-3.5 text-[#00c950]" />
                       <span className="text-[14px] text-[#00c950]">발송됨</span>
                     </div>
                   </div>
@@ -178,23 +178,23 @@ export default function SignupPage() {
                   비밀번호
                 </label>
                 <div className="relative">
-                  <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[rgba(44,40,38,0.4)]">
-                    <Lock className="w-3.75 h-3.75" />
+                  <div className="absolute top-1/2 left-3.5 -translate-y-1/2 text-[rgba(44,40,38,0.4)]">
+                    <Lock className="h-3.75 w-3.75" />
                   </div>
                   <input
                     type={showPassword ? 'text' : 'password'}
                     placeholder="6자 이상"
-                    className="w-full h-12.5 bg-[#faf7f2] border border-[rgba(44,40,38,0.05)] rounded-[14px] pl-10 pr-12 text-[16px] text-[#2c2826] placeholder:text-[rgba(44,40,38,0.3)] outline-none focus:ring-2 focus:ring-[#f4b942]/30 focus:border-[#f4b942]/40 transition-all"
+                    className="h-12.5 w-full rounded-[14px] border border-[rgba(44,40,38,0.05)] bg-[#faf7f2] pr-12 pl-10 text-[16px] text-[#2c2826] transition-all outline-none placeholder:text-[rgba(44,40,38,0.3)] focus:border-[#f4b942]/40 focus:ring-2 focus:ring-[#f4b942]/30"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[rgba(44,40,38,0.4)] hover:text-[rgba(44,40,38,0.7)] transition-colors"
+                    className="absolute top-1/2 right-3.5 -translate-y-1/2 text-[rgba(44,40,38,0.4)] transition-colors hover:text-[rgba(44,40,38,0.7)]"
                   >
                     {showPassword ? (
-                      <EyeOff className="w-3.75 h-3.75" />
+                      <EyeOff className="h-3.75 w-3.75" />
                     ) : (
-                      <Eye className="w-3.75 h-3.75" />
+                      <Eye className="h-3.75 w-3.75" />
                     )}
                   </button>
                 </div>
@@ -206,23 +206,23 @@ export default function SignupPage() {
                   비밀번호 확인
                 </label>
                 <div className="relative">
-                  <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[rgba(44,40,38,0.4)]">
-                    <Lock className="w-3.75 h-3.75" />
+                  <div className="absolute top-1/2 left-3.5 -translate-y-1/2 text-[rgba(44,40,38,0.4)]">
+                    <Lock className="h-3.75 w-3.75" />
                   </div>
                   <input
                     type={showConfirmPassword ? 'text' : 'password'}
                     placeholder="비밀번호 재입력"
-                    className="w-full h-12.5 bg-[#faf7f2] border border-[rgba(44,40,38,0.05)] rounded-[14px] pl-10 pr-12 text-[16px] text-[#2c2826] placeholder:text-[rgba(44,40,38,0.3)] outline-none focus:ring-2 focus:ring-[#f4b942]/30 focus:border-[#f4b942]/40 transition-all"
+                    className="h-12.5 w-full rounded-[14px] border border-[rgba(44,40,38,0.05)] bg-[#faf7f2] pr-12 pl-10 text-[16px] text-[#2c2826] transition-all outline-none placeholder:text-[rgba(44,40,38,0.3)] focus:border-[#f4b942]/40 focus:ring-2 focus:ring-[#f4b942]/30"
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[rgba(44,40,38,0.4)] hover:text-[rgba(44,40,38,0.7)] transition-colors"
+                    className="absolute top-1/2 right-3.5 -translate-y-1/2 text-[rgba(44,40,38,0.4)] transition-colors hover:text-[rgba(44,40,38,0.7)]"
                   >
                     {showConfirmPassword ? (
-                      <EyeOff className="w-3.75 h-3.75" />
+                      <EyeOff className="h-3.75 w-3.75" />
                     ) : (
-                      <Eye className="w-3.75 h-3.75" />
+                      <Eye className="h-3.75 w-3.75" />
                     )}
                   </button>
                 </div>
@@ -234,7 +234,7 @@ export default function SignupPage() {
                   userType === 'teacher' ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
                 }`}
               >
-                <div className="overflow-hidden min-h-0">
+                <div className="min-h-0 overflow-hidden">
                   <div className="flex flex-col gap-6">
                     {/* 교육기관명 */}
                     <div className="flex flex-col gap-1.5">
@@ -242,13 +242,13 @@ export default function SignupPage() {
                         교육기관명
                       </label>
                       <div className="relative">
-                        <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[rgba(44,40,38,0.4)]">
-                          <Building2 className="w-3.75 h-3.75" />
+                        <div className="absolute top-1/2 left-3.5 -translate-y-1/2 text-[rgba(44,40,38,0.4)]">
+                          <Building2 className="h-3.75 w-3.75" />
                         </div>
                         <input
                           type="text"
                           placeholder="학원 / 학교명"
-                          className="w-full h-12.5 bg-[#faf7f2] border border-[rgba(44,40,38,0.05)] rounded-[14px] pl-10 pr-4 text-[16px] text-[#2c2826] placeholder:text-[rgba(44,40,38,0.3)] outline-none focus:ring-2 focus:ring-[#f4b942]/30 focus:border-[#f4b942]/40 transition-all"
+                          className="h-12.5 w-full rounded-[14px] border border-[rgba(44,40,38,0.05)] bg-[#faf7f2] pr-4 pl-10 text-[16px] text-[#2c2826] transition-all outline-none placeholder:text-[rgba(44,40,38,0.3)] focus:border-[#f4b942]/40 focus:ring-2 focus:ring-[#f4b942]/30"
                         />
                       </div>
                     </div>
@@ -261,7 +261,7 @@ export default function SignupPage() {
                       <textarea
                         placeholder="사용 목적을 간략하게 작성해주세요"
                         rows={4}
-                        className="w-full bg-[#faf7f2] border border-[rgba(44,40,38,0.05)] rounded-[14px] px-4 py-3 text-[16px] text-[#2c2826] placeholder:text-[rgba(44,40,38,0.3)] outline-none focus:ring-2 focus:ring-[#f4b942]/30 focus:border-[#f4b942]/40 resize-none transition-all leading-6"
+                        className="w-full resize-none rounded-[14px] border border-[rgba(44,40,38,0.05)] bg-[#faf7f2] px-4 py-3 text-[16px] leading-6 text-[#2c2826] transition-all outline-none placeholder:text-[rgba(44,40,38,0.3)] focus:border-[#f4b942]/40 focus:ring-2 focus:ring-[#f4b942]/30"
                       />
                     </div>
                   </div>
@@ -269,7 +269,7 @@ export default function SignupPage() {
               </div>
 
               {/* 회원가입 버튼 */}
-              <button className="w-full h-13 bg-[#f4b942] text-white text-[16px] font-semibold rounded-[14px] shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)] hover:bg-[#e5aa35] active:scale-[0.99] transition-all mt-2">
+              <button className="mt-2 h-13 w-full rounded-[14px] bg-[#f4b942] text-[16px] font-semibold text-white shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)] transition-all hover:bg-[#e5aa35] active:scale-[0.99]">
                 회원가입 완료
               </button>
 
@@ -278,7 +278,7 @@ export default function SignupPage() {
                 이미 계정이 있으신가요?{' '}
                 <Link
                   href="/login"
-                  className="text-[#f4b942] font-medium hover:underline"
+                  className="font-medium text-[#f4b942] hover:underline"
                 >
                   로그인
                 </Link>
@@ -289,18 +289,18 @@ export default function SignupPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#2c2826] text-white px-14 pt-12 pb-6">
-        <div className="max-w-304 mx-auto">
-          <div className="flex items-start justify-between mb-10">
+      <footer className="bg-[#2c2826] px-14 pt-12 pb-6 text-white">
+        <div className="mx-auto max-w-304">
+          <div className="mb-10 flex items-start justify-between">
             {/* Logo + Description */}
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-[#f4b942] rounded-[14px] flex items-center justify-center">
-                  <Star className="w-4 h-4 text-white fill-white" />
+                <div className="flex h-8 w-8 items-center justify-center rounded-[14px] bg-[#f4b942]">
+                  <Star className="h-4 w-4 fill-white text-white" />
                 </div>
                 <span className="text-[18px] font-bold">스타아트</span>
               </div>
-              <div className="text-[14px] text-[rgba(255,255,255,0.5)] leading-relaxed">
+              <div className="text-[14px] leading-relaxed text-[rgba(255,255,255,0.5)]">
                 <p>아이들의 창작물을 진지한 예술 작품으로,</p>
                 <p>온라인 3D 가상 전시회 플랫폼</p>
               </div>
@@ -316,7 +316,7 @@ export default function SignupPage() {
                   <li>
                     <Link
                       href="/exhibitions"
-                      className="text-[14px] text-[rgba(255,255,255,0.4)] hover:text-[rgba(255,255,255,0.7)] transition-colors"
+                      className="text-[14px] text-[rgba(255,255,255,0.4)] transition-colors hover:text-[rgba(255,255,255,0.7)]"
                     >
                       전체 전시회
                     </Link>
@@ -324,7 +324,7 @@ export default function SignupPage() {
                   <li>
                     <Link
                       href="/signup"
-                      className="text-[14px] text-[rgba(255,255,255,0.4)] hover:text-[rgba(255,255,255,0.7)] transition-colors"
+                      className="text-[14px] text-[rgba(255,255,255,0.4)] transition-colors hover:text-[rgba(255,255,255,0.7)]"
                     >
                       회원가입
                     </Link>
@@ -339,7 +339,7 @@ export default function SignupPage() {
                   <li>
                     <Link
                       href="/about"
-                      className="text-[14px] text-[rgba(255,255,255,0.4)] hover:text-[rgba(255,255,255,0.7)] transition-colors"
+                      className="text-[14px] text-[rgba(255,255,255,0.4)] transition-colors hover:text-[rgba(255,255,255,0.7)]"
                     >
                       서비스 소개
                     </Link>
@@ -347,7 +347,7 @@ export default function SignupPage() {
                   <li>
                     <Link
                       href="/terms"
-                      className="text-[14px] text-[rgba(255,255,255,0.4)] hover:text-[rgba(255,255,255,0.7)] transition-colors"
+                      className="text-[14px] text-[rgba(255,255,255,0.4)] transition-colors hover:text-[rgba(255,255,255,0.7)]"
                     >
                       이용약관
                     </Link>
@@ -355,7 +355,7 @@ export default function SignupPage() {
                   <li>
                     <Link
                       href="/contact"
-                      className="text-[14px] text-[rgba(255,255,255,0.4)] hover:text-[rgba(255,255,255,0.7)] transition-colors"
+                      className="text-[14px] text-[rgba(255,255,255,0.4)] transition-colors hover:text-[rgba(255,255,255,0.7)]"
                     >
                       문의하기
                     </Link>
