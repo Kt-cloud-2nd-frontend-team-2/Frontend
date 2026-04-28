@@ -1,4 +1,26 @@
-language: 'ko-KR'
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: ko-KR
+
+tone_instructions: >-
+  Only comment on critical logic bugs, security vulnerabilities, or major performance bottlenecks.
+  Skip all stylistic or naming preference suggestions.
+
 reviews:
-  auto_review:
-    enabled: true
+  high_level_summary: false
+  sequence_diagrams: false
+  estimate_code_review_effort: false
+  related_issues: false
+  related_prs: false
+  suggested_labels: false
+  in_progress_fortune: false
+  poem: false
+  path_filters:
+    - src/**
+  finishing_touches:
+    docstrings:
+      enabled: false
+    unit_tests:
+      enabled: false
+
+chat:
+  art: false
