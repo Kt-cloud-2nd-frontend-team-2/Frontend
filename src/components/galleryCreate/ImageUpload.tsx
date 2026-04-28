@@ -30,7 +30,7 @@ export default function ImageUpload({
         className="flex cursor-pointer items-center justify-center overflow-hidden"
       >
         {preview ? (
-          <div className="relative h-[300px] w-[510px]">
+          <div className="relative h-[300px] w-[520px]">
             <Image src={preview} alt="preview" fill className="object-cover" />
           </div>
         ) : (
