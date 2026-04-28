@@ -1,22 +1,22 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 // 반복되는 카드 UI를 배열로 선언해 항목 추가/수정 편리하게 만들기
 const LINKS = [
   {
-    href: "/artworks",
-    icon: "heart",
-    iconBg: "bg-[#fff4f5]",
-    iconColor: "#ea8d8f",
-    label: "내 작품 모아보기",
-    sub: "등록된 나의 작품들을 확인하세요",
+    href: '/artworks',
+    icon: 'heart',
+    iconBg: 'bg-[#fff4f5]',
+    iconColor: '#ea8d8f',
+    label: '내 작품 모아보기',
+    sub: '등록된 나의 작품들을 확인하세요',
   },
   {
-    href: "/wishlist",
-    icon: "book",
-    iconBg: "bg-[#fff8e8]",
-    iconColor: "#e3b54a",
-    label: "위시리스트",
-    sub: "좋아하는 작품들을 모아보세요",
+    href: '/wishlist',
+    icon: 'book',
+    iconBg: 'bg-[#fff8e8]',
+    iconColor: '#e3b54a',
+    label: '위시리스트',
+    sub: '좋아하는 작품들을 모아보세요',
   },
 ] as const;
 
@@ -33,7 +33,7 @@ export default function QuickLinks() {
           <div
             className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${link.iconBg}`}
           >
-            {link.icon === "heart" ? (
+            {link.icon === 'heart' ? (
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path
                   d="M10 16.5s-5.75-3.42-5.75-8.02c0-1.98 1.56-3.48 3.45-3.48 1.18 0 2.21.57 2.93 1.55.72-.98 1.75-1.55 2.93-1.55 1.89 0 3.45 1.5 3.45 3.48 0 4.6-5.75 8.02-5.75 8.02Z"
@@ -58,7 +58,7 @@ export default function QuickLinks() {
             )}
           </div>
 
-          <div className="flex-1 min-w-0">
+          <div className="min-w-0 flex-1">
             <p className="mb-1 text-[14px] font-semibold text-[#26221f]">
               {link.label}
             </p>

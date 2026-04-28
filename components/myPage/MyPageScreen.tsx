@@ -1,10 +1,10 @@
-import Link from "next/link";
-import ExhibitionList from "@/components/myPage/ExhibitionList";
-import LogoutButton from "@/components/myPage/LogoutButton";
-import NewExhibitionBanner from "@/components/myPage/NewExhibitionBanner";
-import ProfileCard from "@/components/myPage/ProfileCard";
-import QuickLinks from "@/components/myPage/QuickLinks";
-import type { Profile, UserRole } from "@/types/myPage";
+import Link from 'next/link';
+import ExhibitionList from '@/components/myPage/ExhibitionList';
+import LogoutButton from '@/components/myPage/LogoutButton';
+import NewExhibitionBanner from '@/components/myPage/NewExhibitionBanner';
+import ProfileCard from '@/components/myPage/ProfileCard';
+import QuickLinks from '@/components/myPage/QuickLinks';
+import type { Profile, UserRole } from '@/types/myPage';
 
 interface MyPageScreenProps {
   profile: Profile;
@@ -16,7 +16,7 @@ export default function MyPageScreen({
   currentRole,
 }: MyPageScreenProps) {
   // 계정에 따라 콘텐츠 수가 달라도 푸터바 시작 위치가 크게 달라 보이지 않도록 본문 높이 고정
-  const contentMinHeight = "min-h-[720px]";
+  const contentMinHeight = 'min-h-[720px]';
 
   return (
     <main className="min-h-screen bg-[#f8f4ee] text-[#2d2926]">
@@ -43,9 +43,9 @@ export default function MyPageScreen({
               <Link
                 href="/myPage/teacher"
                 className={`rounded-full px-3 py-1.5 text-[12px] font-medium transition-colors ${
-                  currentRole === "teacher"
-                    ? "bg-[#f2b53f] text-white"
-                    : "text-[#8c867d]"
+                  currentRole === 'teacher'
+                    ? 'bg-[#f2b53f] text-white'
+                    : 'text-[#8c867d]'
                 }`}
               >
                 선생님
@@ -53,9 +53,9 @@ export default function MyPageScreen({
               <Link
                 href="/myPage/user"
                 className={`rounded-full px-3 py-1.5 text-[12px] font-medium transition-colors ${
-                  currentRole === "user"
-                    ? "bg-[#f2b53f] text-white"
-                    : "text-[#8c867d]"
+                  currentRole === 'user'
+                    ? 'bg-[#f2b53f] text-white'
+                    : 'text-[#8c867d]'
                 }`}
               >
                 일반 사용자
@@ -82,10 +82,10 @@ export default function MyPageScreen({
         >
           <ProfileCard profile={profile} />
           {/* 선생님 계정만 보이는 전시회 생성 배너 */}
-          {profile.role === "teacher" && <NewExhibitionBanner />}
+          {profile.role === 'teacher' && <NewExhibitionBanner />}
           <QuickLinks />
           {/* 운영 전시회 목록도 선생님 계정 전용 섹션이다. */}
-          {profile.role === "teacher" && (
+          {profile.role === 'teacher' && (
             <ExhibitionList exhibitions={profile.exhibitions} />
           )}
           <LogoutButton />
