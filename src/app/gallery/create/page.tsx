@@ -1,6 +1,5 @@
 'use client';
 import { Controller, useForm } from 'react-hook-form';
-import { IoClose } from 'react-icons/io5';
 import ImageUpload from '@/components/galleryCreate/ImageUpload';
 import CreateGalleryFormWrapper from '@/components/galleryCreate/FormWrapper';
 import { FaArrowRight } from 'react-icons/fa';
