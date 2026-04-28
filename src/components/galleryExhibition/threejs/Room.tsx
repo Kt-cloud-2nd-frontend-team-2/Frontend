@@ -18,16 +18,14 @@ export default function Room({
   const raycaster = new THREE.Raycaster();
 
   useFrame(({ camera }) => {
-    raycaster.setFromCamera(
-      { x: 0, y: 0 }, // 화면 중앙
-      camera
-    );
+    raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
 
     const intersects = raycaster.intersectObjects(paintingsRef.current);
 
     if (intersects.length > 0 && intersects[0].distance < 4) {
       const hit = intersects[0].object;
-      const id = paintingsRef.current.indexOf(hit);
+      const mesh = hit as THREE.Mesh;
+      const id = paintingsRef.current.indexOf(mesh);
 
       setIsModalOpen(id);
     } else {
