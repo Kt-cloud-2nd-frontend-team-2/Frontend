@@ -107,7 +107,7 @@ export default function GalleryCreatePage() {
                   </>
                 )}
               />
-              <div className={'flex w-full gap-4'}>
+              <div className={'flex w-full flex-wrap gap-4'}>
                 <div className={'flex-1'}>
                   <CreateGalleryFormWrapper
                     title={'시작일'}
