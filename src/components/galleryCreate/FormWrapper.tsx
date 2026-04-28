@@ -27,7 +27,7 @@ export default function CreateGalleryFormWrapper({
         {required && <span className={'text-[14px] text-red-500'}>*</span>}
       </p>
       <div
-        className={`rounded-[14px] border border-[#2C28260D] bg-[#FAF7F2] px-4 py-5 text-[18px] text-[#2C28264D] ${className}`}
+        className={`border-secondary/8 text-secondary/60 bg-primary/5 rounded-[14px] border px-4 py-5 text-[18px] ${className}`}
       >
         {children}
       </div>

@@ -39,16 +39,16 @@ export default function GalleryCreatePage() {
         <div className={'flex w-full max-w-[576px] flex-col gap-[32px]'}>
           <div className={'flex items-center justify-between'}>
             <div className={'flex flex-col gap-1'}>
-              <p className={'text-[28px] font-bold text-[#2C2826]'}>
+              <p className={'text-secondary] text-[28px] font-bold'}>
                 새 전시회 만들기
               </p>
-              <p className={'text-[14px] text-[#2C282680]'}>
+              <p className={'text-secondary/50 text-[14px]'}>
                 해피아트 미술학원
               </p>
             </div>
             <div
               className={
-                'flex h-10 w-10 cursor-pointer rounded-[14px] border border-[#2C282614] bg-white text-[#2C282680] duration-200 hover:font-bold hover:text-black'
+                'border-secondary/8 text-secondary/50 flex h-10 w-10 cursor-pointer rounded-[14px] border bg-white duration-200 hover:font-bold hover:text-black'
               }
             >
               <IoClose className={'m-auto text-3xl'} />
@@ -57,7 +57,7 @@ export default function GalleryCreatePage() {
           <form onSubmit={handleSubmit(submitHandler)}>
             <div
               className={
-                'flex w-full flex-col gap-6 rounded-[24px] border border-[#2C28260D] bg-white p-[33px] shadow-sm'
+                'border-secondary/5 flex w-full flex-col gap-6 rounded-[24px] border bg-white p-[33px] shadow-sm'
               }
             >
               <CreateGalleryFormWrapper
@@ -155,14 +155,14 @@ export default function GalleryCreatePage() {
                 <button
                   type="submit"
                   disabled={!isValid}
-                  className={`flex-1 rounded-[16px] bg-[#F4B942] text-[16px] font-bold text-white disabled:opacity-40`}
+                  className={`bg-primary flex-1 rounded-[16px] text-[16px] font-bold text-white disabled:opacity-40`}
                 >
                   다음: 작품 등록하기
                   <FaArrowRight className={'m-auto inline text-sm'} />
                 </button>
                 <button
                   className={
-                    'rounded-[14px] border border-[#2C28260D] bg-[#FAF7F2] px-6 text-[16px] text-[#2C28264D]'
+                    'border-secondary/8 text-secondary/60 rounded-[14px] border bg-[#FAF7F2] px-6 text-[16px]'
                   }
                 >
                   취소
