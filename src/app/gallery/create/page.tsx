@@ -4,6 +4,7 @@ import { IoClose } from 'react-icons/io5';
 import ImageUpload from '@/components/galleryCreate/ImageUpload';
 import CreateGalleryFormWrapper from '@/components/galleryCreate/FormWrapper';
 import { FaArrowRight } from 'react-icons/fa';
+import { Palette, ImagePlus, Calendar, FileText, X } from 'lucide-react';
 type FormProps = {
   galleryName: string;
   galleryDesc: string;
@@ -51,7 +52,7 @@ export default function GalleryCreatePage() {
                 'border-secondary/8 text-secondary/50 flex h-10 w-10 cursor-pointer rounded-[14px] border bg-white duration-200 hover:font-bold hover:text-black'
               }
             >
-              <IoClose className={'m-auto text-3xl'} />
+              <X className={'m-auto'} />
             </div>
           </div>
           <form onSubmit={handleSubmit(submitHandler)}>
@@ -62,7 +63,7 @@ export default function GalleryCreatePage() {
             >
               <CreateGalleryFormWrapper
                 title={'전시회 이름'}
-                icon={'/createGallery/galleryName.png'}
+                icon={<Palette className={'text-primary w-[17px]'} />}
                 required
               >
                 <input
@@ -73,7 +74,7 @@ export default function GalleryCreatePage() {
               </CreateGalleryFormWrapper>
               <CreateGalleryFormWrapper
                 title={'전시회 설명'}
-                icon={'/createGallery/galleryDesc.png'}
+                icon={<FileText className={'text-primary w-[17px]'} />}
                 required
               >
                 <textarea
@@ -94,7 +95,7 @@ export default function GalleryCreatePage() {
                     <CreateGalleryFormWrapper
                       className={'overflow-hidden border-2 border-dashed p-0!'}
                       title={'배경 이미지'}
-                      icon={'/createGallery/galleryImg.png'}
+                      icon={<ImagePlus className={'text-primary w-[17px]'} />}
                     >
                       <ImageUpload
                         value={field.value}
@@ -113,7 +114,7 @@ export default function GalleryCreatePage() {
                     title={'시작일'}
                     className={'py-3!'}
                     required
-                    icon={'/createGallery/startDate.png'}
+                    icon={<Calendar className={'text-primary w-[17px]'} />}
                   >
                     <input
                       {...register('startDate', { required: true })}
@@ -128,7 +129,7 @@ export default function GalleryCreatePage() {
                   <CreateGalleryFormWrapper
                     title={'종료일'}
                     className={'py-3!'}
-                    icon={'/createGallery/endDate.png'}
+                    icon={<Calendar className={'text-secondary w-[17px]'} />}
                   >
                     <input
                       {...register('endDate', {

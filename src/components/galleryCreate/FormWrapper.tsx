@@ -1,5 +1,5 @@
 import Image from 'next/image';
-
+import { ReactNode } from 'react';
 export default function CreateGalleryFormWrapper({
   title,
   icon,
@@ -8,7 +8,7 @@ export default function CreateGalleryFormWrapper({
   children,
 }: {
   title: string;
-  icon: string;
+  icon: ReactNode;
   required?: boolean;
   className?: string;
   children: React.ReactNode;
@@ -16,13 +16,7 @@ export default function CreateGalleryFormWrapper({
   return (
     <div className={'flex flex-col gap-2'}>
       <p className={'flex w-fit gap-2 font-medium'}>
-        <Image
-          src={icon}
-          width={15}
-          height={15}
-          alt={'logo'}
-          className={'m-auto inline'}
-        />
+        {icon}
         {title}
         {required && <span className={'text-[14px] text-red-500'}>*</span>}
       </p>

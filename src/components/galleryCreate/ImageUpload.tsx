@@ -34,7 +34,7 @@ export default function ImageUpload({
             <Image src={preview} alt="preview" fill className="object-cover" />
           </div>
         ) : (
-          <div className="flex flex-col items-center gap-2 py-6 text-secondary/40">
+          <div className="text-secondary/40 flex flex-col items-center gap-2 py-6">
             <Image
               src="/createGallery/imgUploadIcon.png"
               alt="uploadIcon"
