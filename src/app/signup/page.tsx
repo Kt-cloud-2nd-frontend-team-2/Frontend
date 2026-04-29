@@ -116,9 +116,7 @@ export default function SignupPage() {
       data: {
         name,
         role: userType,
-        ...(userType === 'teacher'
-          ? { organization, purpose }
-          : {}),
+        ...(userType === 'teacher' ? { organization, purpose } : {}),
       },
     });
 
