@@ -5,7 +5,6 @@ export const ROOMSIZE = 15;
 export const SPEED = 5;
 export const HEIGHT = ROOMSIZE / 10;
 
-export const WALL_HEIGHT = ROOMSIZE * 0.5;
 export const INIT: PaintingType[] = [
   {
     id: 1,
@@ -61,29 +60,3 @@ export const createWalls = (
     },
   ];
 };
-export const WALLS: WAllType[] = [
-  {
-    color: '#CEC8BD',
-    pos: [0, WALL_HEIGHT / 2, -ROOMSIZE / 2],
-    boxSize: [ROOMSIZE, WALL_HEIGHT, 0.5],
-    rot: [0, 0, 0],
-  },
-  {
-    color: '#D6D0C5',
-    pos: [0, WALL_HEIGHT / 2, ROOMSIZE / 2],
-    boxSize: [ROOMSIZE, WALL_HEIGHT, 0.5],
-    rot: [0, Math.PI, 0],
-  },
-  {
-    color: '#CEC8BD',
-    pos: [-ROOMSIZE / 2, WALL_HEIGHT / 2, 0],
-    boxSize: [ROOMSIZE, WALL_HEIGHT, 0.5],
-    rot: [0, Math.PI / 2, 0],
-  },
-  {
-    color: '#DDD7CC',
-    pos: [ROOMSIZE / 2, WALL_HEIGHT / 2, 0],
-    boxSize: [ROOMSIZE, WALL_HEIGHT, 0.5],
-    rot: [0, -Math.PI / 2, 0],
-  },
-];
