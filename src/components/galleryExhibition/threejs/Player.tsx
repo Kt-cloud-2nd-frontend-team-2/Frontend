@@ -1,10 +1,8 @@
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { HEIGHT, ROOMSIZE, SPEED } from '../../../../data/galleryData';
 
-export const ROOMSIZE = 15;
-export const SPEED = 5;
-export const HEIGHT = ROOMSIZE / 10;
 export default function Player() {
   const velocity = useRef(new THREE.Vector3());
   const direction = useRef(new THREE.Vector3());
