@@ -19,14 +19,12 @@ export default function Header() {
             </Link>
 
             <nav>
-              <div className="flex items-center gap-2">
-                <Link
-                  href="/"
-                  className="text-secondary/60 text-sm transition-colors hover:text-gray-900"
-                >
-                  전체 전시회
-                </Link>
-              </div>
+              <Link
+                href="/"
+                className="text-secondary/60 text-sm transition-colors hover:text-gray-900"
+              >
+                전체 전시회
+              </Link>
             </nav>
           </div>
 
