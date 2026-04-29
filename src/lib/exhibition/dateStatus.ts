@@ -5,10 +5,18 @@ export function getStatus(
   endDate?: string
 ): ExhibitionStatus {
   const now = Date.now();
-  const start = new Date(startDate).getTime();
-  const end = endDate ? new Date(endDate).getTime() : start;
+  const start = new Date(startDate);
+  const end = new Date(endDate ?? startDate);
 
-  if (now < start) return 'upcoming';
-  if (now > end) return 'ended';
+  if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+    console.warn('Invalid date:', { startDate, endDate });
+    return 'ended';
+  }
+
+  start.setHours(0, 0, 0, 0);
+  end.setHours(23, 59, 59, 999);
+
+  if (now < start.getTime()) return 'upcoming';
+  if (now > end.getTime()) return 'ended';
   return 'ongoing';
 }
