@@ -17,6 +17,7 @@ export default function LoginPage() {
             src="/images/login-gallery.jpg"
             alt="스타아트 갤러리"
             fill
+            sizes="432px"
             className="object-cover"
             priority
           />
