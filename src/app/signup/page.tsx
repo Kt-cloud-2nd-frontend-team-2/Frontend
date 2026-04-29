@@ -15,6 +15,7 @@ import {
   Building2,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
+import { getAuthErrorMessage } from '@/lib/supabase/authErrors';
 
 type UserType = 'general' | 'teacher';
 
@@ -59,7 +60,7 @@ export default function SignupPage() {
     setIsSendingOtp(false);
 
     if (error) {
-      setErrorMessage(error.message);
+      setErrorMessage(getAuthErrorMessage(error));
       return;
     }
 
@@ -106,7 +107,7 @@ export default function SignupPage() {
 
     if (verifyError) {
       setIsSubmitting(false);
-      setErrorMessage(verifyError.message);
+      setErrorMessage(getAuthErrorMessage(verifyError));
       return;
     }
 
@@ -124,7 +125,7 @@ export default function SignupPage() {
     setIsSubmitting(false);
 
     if (updateError) {
-      setErrorMessage(updateError.message);
+      setErrorMessage(getAuthErrorMessage(updateError));
       return;
     }
 
