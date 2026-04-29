@@ -2,7 +2,6 @@ import crypto from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const OTP_SECRET = process.env.OTP_SECRET!;
 
 function generateOtp(): string {
@@ -27,6 +26,7 @@ function createOtpToken(email: string, otp: string): string {
 }
 
 export async function POST(req: NextRequest) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const { email } = await req.json();
 
   if (!email) {
