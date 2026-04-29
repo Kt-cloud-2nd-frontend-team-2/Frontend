@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { ArrowRight, Calendar, Heart, Settings, Star } from 'lucide-react';
-import { getStatus } from '@/lib/exhibition/dateStatus';
+import { formatDate, getStatus } from '@/lib/exhibition/dateStatus';
 import { ReviewSection } from '@/components/exhibition/reviewSection';
 import { WorkCard } from '@/components/exhibition/workCard';
 import { ExhibitionEnded } from '@/components/exhibition/exhibitionEnded';
@@ -134,6 +134,7 @@ export default async function ExhibitionDetail({ params }: PageProps) {
   const isTeacher = true;
 
   const status = getStatus(exhibition.startDate, exhibition.endDate);
+  const dateText = formatDate(exhibition.startDate, exhibition.endDate);
 
   // 종료된 전시 → 안내 화면
   if (status === 'ended') {
@@ -157,10 +158,6 @@ export default async function ExhibitionDetail({ params }: PageProps) {
       />
     );
   }
-
-  const dateText = exhibition.endDate
-    ? `${exhibition.startDate} ~ ${exhibition.endDate}`
-    : exhibition.startDate;
 
   // TODO: 추후 인증 연결
   const isLoggedIn = true;
