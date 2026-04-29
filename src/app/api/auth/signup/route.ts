@@ -17,9 +17,12 @@ function hashOtp(otp: string): string {
 
 function verifyOtpToken(token: string, email: string, otp: string): boolean {
   try {
-    const { email: te, otpHash, expiresAt, sig }: OtpToken = JSON.parse(
-      Buffer.from(token, 'base64').toString()
-    );
+    const {
+      email: te,
+      otpHash,
+      expiresAt,
+      sig,
+    }: OtpToken = JSON.parse(Buffer.from(token, 'base64').toString());
 
     if (te !== email) return false;
     if (Date.now() > expiresAt) return false;
@@ -33,10 +36,7 @@ function verifyOtpToken(token: string, email: string, otp: string): boolean {
       return false;
 
     const inputHash = hashOtp(otp);
-    return crypto.timingSafeEqual(
-      Buffer.from(otpHash),
-      Buffer.from(inputHash)
-    );
+    return crypto.timingSafeEqual(Buffer.from(otpHash), Buffer.from(inputHash));
   } catch {
     return false;
   }
