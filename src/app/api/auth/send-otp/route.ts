@@ -5,7 +5,7 @@ import { Resend } from 'resend';
 const OTP_SECRET = process.env.OTP_SECRET!;
 
 function generateOtp(): string {
-  return Math.floor(10000000 + Math.random() * 90000000).toString();
+  return crypto.randomInt(0, 100000000).toString().padStart(8, '0');
 }
 
 function hashOtp(otp: string): string {
