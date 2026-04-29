@@ -42,3 +42,6 @@ next-env.d.ts
 
 #claude
 .claude
+
+# 특정 개발도구 설정파일
+.idea/
