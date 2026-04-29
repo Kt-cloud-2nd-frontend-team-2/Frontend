@@ -51,16 +51,16 @@ export default function SignupPage() {
     }
 
     setIsSendingOtp(true);
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        shouldCreateUser: true,
-      },
+    const res = await fetch('/api/auth/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
     });
     setIsSendingOtp(false);
 
-    if (error) {
-      setErrorMessage(getAuthErrorMessage(error));
+    if (!res.ok) {
+      const { error } = await res.json();
+      setErrorMessage(error ?? '이메일 발송에 실패했습니다.');
       return;
     }
 
@@ -99,31 +99,42 @@ export default function SignupPage() {
 
     setIsSubmitting(true);
 
-    const { error: verifyError } = await supabase.auth.verifyOtp({
-      email,
-      token: otp,
-      type: 'email',
+    const signupRes = await fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        otp,
+        password,
+        name,
+        role: userType,
+        organization,
+        purpose,
+      }),
     });
 
-    if (verifyError) {
+    if (!signupRes.ok) {
       setIsSubmitting(false);
-      setErrorMessage(getAuthErrorMessage(verifyError));
+      try {
+        const { error } = await signupRes.json();
+        setErrorMessage(error ?? '회원가입에 실패했습니다.');
+      } catch {
+        setErrorMessage('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      }
       return;
     }
 
-    const { error: updateError } = await supabase.auth.updateUser({
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email,
       password,
-      data: {
-        name,
-        role: userType,
-        ...(userType === 'teacher' ? { organization, purpose } : {}),
-      },
     });
 
     setIsSubmitting(false);
 
-    if (updateError) {
-      setErrorMessage(getAuthErrorMessage(updateError));
+    if (signInError) {
+      setErrorMessage(
+        `가입은 완료됐으나 로그인에 실패했습니다. (${getAuthErrorMessage(signInError)}) 로그인 페이지에서 다시 시도해주세요.`
+      );
       return;
     }
 
