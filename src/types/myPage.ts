@@ -1,11 +1,13 @@
 export type UserRole = 'teacher' | 'user';
 
+export type ExhibitionStatus = 'active' | 'ended';
+
 export type Exhibition = {
   id: string;
   title: string;
   artworkCount: number;
-  status: 'active' | 'ended';
-  thumbnail: 'sunset' | 'abstract' | 'pastel' | 'nature';
+  status: ExhibitionStatus;
+  thumbnail: string | null; // 이미지 URL or null
 };
 
 export type TeacherProfile = {
