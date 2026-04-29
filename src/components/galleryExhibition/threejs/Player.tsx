@@ -59,7 +59,7 @@ export default function Player() {
     if (keys.current.a) direction.current.x += 1;
     if (keys.current.d) direction.current.x -= 1;
 
-    direction.current.normalize();
+    // direction.current.normalize();
 
     velocity.current.x = direction.current.x * speed * delta;
     velocity.current.z = direction.current.z * speed * delta;
@@ -67,6 +67,12 @@ export default function Player() {
     const camera = state.camera;
 
     camera.getWorldDirection(forward.current);
+    forward.current.y = 0;
+    if (forward.current.lengthSq() < 1e-6) {
+      forward.current.set(0, 0, -1);
+    } else {
+      forward.current.normalize();
+    }
     right.current.crossVectors(camera.up, forward.current).normalize();
 
     const newX =

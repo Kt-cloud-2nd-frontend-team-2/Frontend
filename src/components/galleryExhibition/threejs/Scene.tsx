@@ -43,6 +43,7 @@ export default function Scene() {
     ? (INIT.find((x) => x.id === isModalOpen) ?? null)
     : null;
 
+  console.log(details);
   // console.log(isModalOpen);
   return (
     <>

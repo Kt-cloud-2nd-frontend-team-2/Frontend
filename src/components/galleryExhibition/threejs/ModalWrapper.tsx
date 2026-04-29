@@ -3,15 +3,17 @@ export default function ModalWrapper({
   isOpen,
   height,
   width,
+  className = '',
 }: {
   children: React.ReactNode;
   isOpen: boolean;
   height: number;
   width: number;
+  className?: string;
 }) {
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-black/15 backdrop-blur-xs duration-200 ${isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-black/15 backdrop-blur-xs duration-200 ${isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'} ${className}`}
     >
       <div
         style={{

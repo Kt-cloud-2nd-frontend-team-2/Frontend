@@ -16,18 +16,24 @@ export default function Room({
   const half = size / 2;
   const height = size * 0.3;
 
-  const paintingsRef = useRef<THREE.Mesh[]>([]);
+  const paintingsRef = useRef<Set<THREE.Mesh>>(new Set());
   const registerPainting = (mesh: THREE.Mesh) => {
-    paintingsRef.current.push(mesh);
+    console.log('Enjs');
+    paintingsRef.current.add(mesh);
   };
+  const unregisterPainting = (mesh: THREE.Mesh) => {
+    paintingsRef.current.delete(mesh);
+  };
+
   const raycaster = new THREE.Raycaster();
 
   useFrame(({ camera }) => {
     raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
 
-    const intersects = raycaster.intersectObjects(paintingsRef.current);
+    const intersects = raycaster.intersectObjects([...paintingsRef.current]);
 
     if (intersects.length > 0 && intersects[0].distance < 4) {
+      console.log('enjse');
       const hit = intersects[0].object;
       const id = (hit as THREE.Mesh).userData.id;
       setIsModalOpen(id);
@@ -58,6 +64,7 @@ export default function Room({
             <Painting
               key={i}
               register={registerPainting}
+              unregister={unregisterPainting}
               paintingDetails={painting}
               x={x}
             />
@@ -68,17 +75,17 @@ export default function Room({
         <boxGeometry args={[size, height, 0.5]} />
         <meshStandardMaterial color="#D6D0C5" />
       </mesh>
-      ;
+
       <mesh position={[-half, height / 2, 0]}>
         <boxGeometry args={[0.5, height, size]} />
         <meshStandardMaterial color="#D6D0C5" />
       </mesh>
-      ;
+
       <mesh position={[half, height / 2, 0]}>
         <boxGeometry args={[0.5, height, size]} />
         <meshStandardMaterial color="#DDD7CC" />
       </mesh>
-      ;
+
       <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, height, 0]}>
         <planeGeometry args={[size, size]} />
         <meshStandardMaterial color="#ffffff" />
@@ -87,7 +94,6 @@ export default function Room({
         {/*<pointLight position={[-10, 15, -10]} intensity={0.4} />*/}
         {/**/}
       </mesh>
-      ;
     </>
   );
 }
@@ -95,19 +101,22 @@ export default function Room({
 function Painting({
   x,
   register,
+  unregister,
   paintingDetails,
 }: {
   x: number;
   register: (mesh: THREE.Mesh) => void;
+  unregister: (mesh: THREE.Mesh) => void;
   paintingDetails: Painting;
 }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const paintTexture = useTexture(paintingDetails.paintingUrl);
   useEffect(() => {
-    if (meshRef.current) {
-      meshRef.current.userData.id = paintingDetails.id;
-      register(meshRef.current);
-    }
+    if (!meshRef.current) return;
+    const mesh = meshRef.current;
+    mesh.userData.id = paintingDetails.id;
+    register(mesh);
+    return () => unregister(mesh);
   }, []);
 
   return (
