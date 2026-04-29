@@ -61,7 +61,7 @@ export function UserMenu({ name }: UserMenuProps) {
             <MenuItem href="/" icon={<BookMarked className="h-4 w-4" />}>
               위시리스트
             </MenuItem>
-            <MenuItem href="/" icon={<Heart className="h-4 w-4" />}>
+            <MenuItem href="/artworks" icon={<Heart className="h-4 w-4" />}>
               내 작품 모아보기
             </MenuItem>
           </ul>
