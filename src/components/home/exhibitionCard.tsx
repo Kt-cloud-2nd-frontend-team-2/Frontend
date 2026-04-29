@@ -2,19 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, CheckCircle, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { getStatus } from '@/lib/exhibitionStatus';
-import { LikeButton } from './likeButton';
-
-export interface ExhibitionProps {
-  id: string;
-  title: string;
-  host: string;
-  image: string;
-  startDate: string;
-  endDate?: string;
-  likes: number;
-  href?: string;
-}
+import { getStatus } from '@/lib/exhibition/dateStatus';
+import { ExhibitionProps } from '@/types/exhibitionList';
+import LikeButton from './likeButton';
 
 interface ExhibitionCardProps {
   exhibition: ExhibitionProps;
@@ -22,7 +12,7 @@ interface ExhibitionCardProps {
   isLoggedIn?: boolean;
 }
 
-export function ExhibitionCard({
+export default function ExhibitionCard({
   exhibition,
   selected,
   isLoggedIn,
@@ -50,7 +40,7 @@ export function ExhibitionCard({
         selected && 'ring-primary ring-2'
       )}
     >
-      <div className="relative aspect-[4/3] overflow-hidden bg-[#F5EFE0]">
+      <div className="relative aspect-4/3 overflow-hidden bg-[#F5EFE0]">
         <Image
           src={image}
           alt={title}

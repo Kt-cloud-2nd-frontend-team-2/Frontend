@@ -1,14 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-
-export type ExhibitionSort =
-  | 'latest'
-  | 'popular'
-  | 'oldest'
-  | 'upcoming'
-  | 'ended'
-  | 'mine';
+import { ExhibitionSort } from '@/types/exhibitionList';
 
 const BASE_FILTERS: { value: ExhibitionSort; label: string }[] = [
   { value: 'latest', label: '최신순' },
@@ -29,7 +22,7 @@ interface ExhibitionFilterProps {
   isTeacher?: boolean;
 }
 
-export function ExhibitionFilter({
+export default function ExhibitionFilter({
   value,
   onChange,
   isTeacher = false,

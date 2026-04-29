@@ -1,53 +1,32 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { Plus, Star } from 'lucide-react';
-import { ExhibitionCard, ExhibitionProps } from './exhibitionCard';
-import { ExhibitionFilter, type ExhibitionSort } from './exhibitionFilter';
-import { getStatus } from '@/lib/exhibitionStatus';
+import { ExhibitionProps, ExhibitionSort } from '@/types/exhibitionList';
+import ExhibitionFilter from './exhibitionFilter';
+import ExhibitionCard from './exhibitionCard';
+import { filterAndSortExhibitions } from '@/lib/exhibition/filter';
 
 interface ExhibitionListProps {
   exhibitions: ExhibitionProps[];
-  isTeacher?: boolean;
   isLoggedIn?: boolean;
-  /** "내가 운영중인" 필터 기준 (호스트 이름 또는 사용자 id) */
-  currentHost?: string;
+  isTeacher?: boolean;
+  currentHost?: string; // 내가 운영중인 필터 - 현재 호스트 id or name
 }
 
-export function ExhibitionList({
+export default function ExhibitionList({
   exhibitions,
   isTeacher = false,
   isLoggedIn = false,
   currentHost,
 }: ExhibitionListProps) {
   const [sort, setSort] = useState<ExhibitionSort>('latest');
-
-  const visible = useMemo(() => {
-    switch (sort) {
-      case 'popular':
-        return [...exhibitions].sort((a, b) => b.likes - a.likes);
-      case 'oldest':
-        return [...exhibitions].sort((a, b) =>
-          a.startDate.localeCompare(b.startDate)
-        );
-      case 'upcoming':
-        return exhibitions.filter(
-          (e) => getStatus(e.startDate, e.endDate) === 'upcoming'
-        );
-      case 'ended':
-        return exhibitions.filter(
-          (e) => getStatus(e.startDate, e.endDate) === 'ended'
-        );
-      case 'mine':
-        return exhibitions.filter((e) => e.host === currentHost);
-      case 'latest':
-      default:
-        return [...exhibitions].sort((a, b) =>
-          b.startDate.localeCompare(a.startDate)
-        );
-    }
-  }, [exhibitions, sort, currentHost]);
+  const filterList = filterAndSortExhibitions({
+    exhibitions,
+    sort,
+    currentHost,
+  });
 
   return (
     <section className="space-y-6">
@@ -57,7 +36,7 @@ export function ExhibitionList({
           onChange={setSort}
           isTeacher={isTeacher}
         />
-
+        {/* 선생님 계정만 추가 */}
         {isTeacher && (
           <Link
             href="/exhibitions/new"
@@ -67,9 +46,10 @@ export function ExhibitionList({
             전시회 만들기
           </Link>
         )}
+        {/* //선생님 계정만 추가 */}
       </div>
 
-      {visible.length === 0 ? (
+      {filterList.length === 0 ? (
         <div className="flex flex-col items-center justify-center gap-1 py-28 text-center">
           <div className="bg-primary/10 mb-4 flex h-20 w-20 items-center justify-center rounded-2xl">
             <Star className="text-primary h-10 w-10" strokeWidth={2} />
@@ -81,7 +61,7 @@ export function ExhibitionList({
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {visible.map((exhibition) => (
+          {filterList.map((exhibition) => (
             <ExhibitionCard
               key={exhibition.id}
               exhibition={exhibition}

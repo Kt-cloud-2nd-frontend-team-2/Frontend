@@ -1,7 +1,7 @@
+import ExhibitionList from '@/components/home/exhibitionList';
+import { ExhibitionProps } from '@/types/exhibitionList';
 import { Search, Sparkles } from 'lucide-react';
 import Image from 'next/image';
-import { ExhibitionList } from '@/components/exhibition/exhibitionList';
-import type { ExhibitionProps } from '@/components/exhibition/exhibitionCard';
 
 const exhibitions: ExhibitionProps[] = [
   {
@@ -62,11 +62,11 @@ export default function Home() {
               <Sparkles className="h-4 w-4" />
               아이들의 꿈이 예술이 되는 곳
             </span>
-            <h2 className="text-secondary text-4xl leading-tight font-bold md:text-5xl">
+            <h1 className="text-secondary text-4xl leading-tight font-bold md:text-5xl">
               아이들의 첫 미술전,
               <br />
               시작은 <span className="text-primary">스타아트</span>와 함께
-            </h2>
+            </h1>
             <p className="text-secondary/60 text-base leading-relaxed">
               미술 학원 선생님이 주최하는 아이들의 작품 전시회를
               <br />
@@ -94,7 +94,7 @@ export default function Home() {
       <div className="mx-auto max-w-6xl px-3.5 pb-20">
         <ExhibitionList
           exhibitions={exhibitions}
-          isLoggedIn
+          isLoggedIn={true}
           isTeacher
           currentHost="해피아트 미술학원"
         />
