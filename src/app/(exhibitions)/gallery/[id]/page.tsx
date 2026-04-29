@@ -9,13 +9,13 @@ import Scene from '@/components/galleryExhibition/threejs/Scene';
 import Scene2 from '@/components/galleryExhibition/threejs/test/Scene';
 
 export default function GalleryExhibitionPage() {
-  const { galleryId } = useParams();
+  const { id } = useParams();
   const [galleryInit, setGalleryInit] = useState([]);
   const [isMuted, setIsMuted] = useState(false);
   const [start, setStart] = useState(0);
   console.log(start);
   useEffect(() => {
-    console.log(galleryId);
+    console.log(id);
     const fetchInit = async () => {
       //서비스 레이어로 뺼예정
       try {

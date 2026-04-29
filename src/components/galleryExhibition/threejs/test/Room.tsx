@@ -94,6 +94,7 @@ function Painting({
       paintingRef.current.emissiveIntensity = 0.4;
     }
   });
+  if (!details) return null;
 
   return (
     <>
