@@ -9,16 +9,21 @@ function generateOtp(): string {
   return Math.floor(10000000 + Math.random() * 90000000).toString();
 }
 
+function hashOtp(otp: string): string {
+  return crypto.createHmac('sha256', OTP_SECRET).update(otp).digest('hex');
+}
+
 function createOtpToken(email: string, otp: string): string {
   const expiresAt = Date.now() + 10 * 60 * 1000;
-  const payload = `${email}:${otp}:${expiresAt}`;
+  const otpHash = hashOtp(otp);
+  const payload = `${email}:${otpHash}:${expiresAt}`;
   const sig = crypto
     .createHmac('sha256', OTP_SECRET)
     .update(payload)
     .digest('hex');
-  return Buffer.from(JSON.stringify({ email, otp, expiresAt, sig })).toString(
-    'base64'
-  );
+  return Buffer.from(
+    JSON.stringify({ email, otpHash, expiresAt, sig })
+  ).toString('base64');
 }
 
 export async function POST(req: NextRequest) {

@@ -6,29 +6,37 @@ const OTP_SECRET = process.env.OTP_SECRET!;
 
 interface OtpToken {
   email: string;
-  otp: string;
+  otpHash: string;
   expiresAt: number;
   sig: string;
 }
 
+function hashOtp(otp: string): string {
+  return crypto.createHmac('sha256', OTP_SECRET).update(otp).digest('hex');
+}
+
 function verifyOtpToken(token: string, email: string, otp: string): boolean {
   try {
-    const {
-      email: te,
-      otp: to,
-      expiresAt,
-      sig,
-    }: OtpToken = JSON.parse(Buffer.from(token, 'base64').toString());
+    const { email: te, otpHash, expiresAt, sig }: OtpToken = JSON.parse(
+      Buffer.from(token, 'base64').toString()
+    );
 
-    if (te !== email || to !== otp) return false;
+    if (te !== email) return false;
     if (Date.now() > expiresAt) return false;
 
-    const payload = `${te}:${to}:${expiresAt}`;
+    const payload = `${te}:${otpHash}:${expiresAt}`;
     const expected = crypto
       .createHmac('sha256', OTP_SECRET)
       .update(payload)
       .digest('hex');
-    return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected));
+    if (!crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected)))
+      return false;
+
+    const inputHash = hashOtp(otp);
+    return crypto.timingSafeEqual(
+      Buffer.from(otpHash),
+      Buffer.from(inputHash)
+    );
   } catch {
     return false;
   }
