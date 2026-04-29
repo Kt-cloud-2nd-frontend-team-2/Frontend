@@ -1,10 +1,9 @@
 import { Canvas } from '@react-three/fiber';
 import { PointerLockControls } from '@react-three/drei';
 import Room from '@/components/galleryExhibition/threejs/Room';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import ModalWrapper from '@/components/galleryExhibition/threejs/ModalWrapper';
-import * as THREE from 'three';
 import Player from '@/components/galleryExhibition/threejs/Player';
 import { PaintingType } from '../../../../types/gallery';
 import { INIT } from '../../../../data/galleryData';

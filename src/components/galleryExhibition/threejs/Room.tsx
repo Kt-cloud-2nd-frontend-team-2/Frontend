@@ -2,8 +2,8 @@ import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import React, { useRef } from 'react';
 import Painting from '@/components/galleryExhibition/threejs/Painting';
-import { PaintingType, WAllType } from '../../../../types/gallery';
-import { ROOMSIZE, WALL_HEIGHT, WALLS } from '../../../../data/galleryData';
+import { PaintingType } from '../../../../types/gallery';
+import { createWalls } from '../../../../data/galleryData';
 
 export default function Room({
   setIsModalOpen,
@@ -12,8 +12,9 @@ export default function Room({
   setIsModalOpen: React.Dispatch<React.SetStateAction<null | number>>;
   init: PaintingType[];
 }) {
-  const size = ROOMSIZE;
-  const height = WALL_HEIGHT;
+  const size = 15;
+  const height = 15 * 0.3;
+  const walls = createWalls(size, height);
   const raycaster = new THREE.Raycaster();
 
   const paintingsRef = useRef<Set<THREE.Mesh>>(new Set());
@@ -46,9 +47,9 @@ export default function Room({
         <meshStandardMaterial color="#9E815D" />
       </mesh>
       {/* walls */}
-      {WALLS.map((wall, i) => {
+      {walls.map((wall, i) => {
         return (
-          <group key={i} position={wall.pos}>
+          <group key={i} position={wall.pos} rotation={wall.rot}>
             <mesh>
               <boxGeometry args={wall.boxSize} />
               <meshStandardMaterial color={wall.color} />
@@ -56,8 +57,8 @@ export default function Room({
 
             {i === 0 &&
               init.map((painting, i) => {
-                const gap = ROOMSIZE / (3 + 1);
-                const x = -ROOMSIZE / 2 + gap * (i + 1);
+                const gap = size / (3 + 1);
+                const x = -size / 2 + gap * (i + 1);
 
                 return (
                   <Painting
