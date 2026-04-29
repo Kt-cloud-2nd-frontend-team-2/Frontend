@@ -31,13 +31,13 @@ export default function Header() {
           <div className="flex items-center gap-2">
             {/* 로그아웃상태
             <Link
-              href="/"
+              href="/login"
               className="text-secondary hover:bg-primary/10 inline-flex h-9 items-center px-5 py-1.5 text-sm hover:rounded-xl"
             >
               로그인
             </Link>
             <Link
-              href="/"
+              href="/signup"
               className="bg-primary inline-flex h-9 items-center rounded-xl px-5 text-sm text-white transition-colors hover:bg-[#E09415]"
             >
               회원가입
