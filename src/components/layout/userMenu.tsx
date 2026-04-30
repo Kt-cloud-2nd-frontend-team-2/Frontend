@@ -11,14 +11,28 @@ import {
   LogOut,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { createClient } from '@/lib/supabase/client';
 
 export interface UserMenuProps {
   name: string;
 }
 
 export function UserMenu({ name }: UserMenuProps) {
+  const supabase = createClient();
   const [open, setOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+
+  const handleLogout = async () => {
+    if (isLoggingOut) return;
+    setIsLoggingOut(true);
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      setIsLoggingOut(false);
+      return;
+    }
+    window.location.replace('/');
+  };
 
   // 외부 클릭 시 닫기
   useEffect(() => {
@@ -70,16 +84,15 @@ export function UserMenu({ name }: UserMenuProps) {
             <li>
               <button
                 type="button"
-                onClick={() => {
-                  setOpen(false);
-                }}
+                onClick={handleLogout}
+                disabled={isLoggingOut}
                 className={cn(
                   'flex w-full cursor-pointer items-center gap-3 rounded-xl p-3 text-sm text-[#E5484D] transition-colors',
-                  'hover:bg-[#FDECEC]'
+                  'hover:bg-[#FDECEC] disabled:opacity-60'
                 )}
               >
                 <LogOut className="h-4 w-4" />
-                로그아웃
+                {isLoggingOut ? '로그아웃 중...' : '로그아웃'}
               </button>
             </li>
           </ul>
