@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { Bookmark, Download, Heart, X } from 'lucide-react';
+import { Download, Heart, X } from 'lucide-react';
 import {
   Dialog,
   DialogClose,
@@ -20,19 +20,19 @@ export interface Work {
   likes?: number;
 }
 
-interface WorkCardProps {
+interface WorkDialogProps {
   work: Work;
   exhibitionTitle: string;
   exhibitionHost: string;
   isLoggedIn?: boolean;
 }
 
-export function WorkCard({
+export function WorkDialog({
   work,
   exhibitionTitle,
   exhibitionHost,
   isLoggedIn = false,
-}: WorkCardProps) {
+}: WorkDialogProps) {
   return (
     <Dialog>
       <DialogTrigger className="group block w-full overflow-hidden rounded-2xl bg-white text-left shadow-[0_2px_8px_rgba(44,40,38,0.06)] transition-all hover:shadow-[0_8px_24px_rgba(44,40,38,0.12)]">

@@ -32,7 +32,7 @@ interface ExhibitionDetail {
   startDate: string;
   endDate?: string;
   totalLikes: number;
-  description: string;
+  description?: string;
   works?: Work[];
   reviews?: Review[];
 }
@@ -94,7 +94,6 @@ const mockExhibitionDetail: Record<string, ExhibitionDetail> = {
       },
     ],
   },
-  // 추가 - 종료된 전시
   '4': {
     id: '4',
     title: '겨울 풍경전',
@@ -103,10 +102,7 @@ const mockExhibitionDetail: Record<string, ExhibitionDetail> = {
     startDate: '2025-12-01',
     endDate: '2026-02-28',
     totalLikes: 312,
-    description: '...',
   },
-
-  // 추가 - 예정된 전시
   '1': {
     id: '1',
     title: '여름 날씨전',
@@ -114,7 +110,6 @@ const mockExhibitionDetail: Record<string, ExhibitionDetail> = {
     banner: '/images/sample_thumb.png',
     startDate: '2026-08-01',
     totalLikes: 0,
-    description: '...',
   },
 };
 
@@ -122,21 +117,27 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
+// TODO: 추후 인증 연결
+const mockSession = {
+  isLoggedIn: true,
+  isTeacher: true,
+  currentUser: '박관람',
+  isOwner: true,
+  isLiked: true,
+};
+
 export default async function ExhibitionDetail({ params }: PageProps) {
+  // 임시연결
   const { id } = await params;
   const exhibition = mockExhibitionDetail[id];
+  const { isTeacher, isLoggedIn, currentUser, isOwner, isLiked } = mockSession;
 
-  if (!exhibition) {
-    notFound();
-  }
-
-  // TODO: 추후 인증 연결 (분기 안내 페이지에서도 사용)
-  const isTeacher = true;
+  if (!exhibition) notFound();
 
   const status = getStatus(exhibition.startDate, exhibition.endDate);
   const dateText = formatDate(exhibition.startDate, exhibition.endDate);
 
-  // 종료된 전시 → 안내 화면
+  // 종료된 전시
   if (status === 'ended') {
     return (
       <ExhibitionEnded
@@ -146,7 +147,7 @@ export default async function ExhibitionDetail({ params }: PageProps) {
     );
   }
 
-  // 예정된 전시 → 안내 화면
+  // 예정된 전시
   if (status === 'upcoming') {
     return (
       <ExhibitionUpcoming
@@ -158,12 +159,6 @@ export default async function ExhibitionDetail({ params }: PageProps) {
       />
     );
   }
-
-  // TODO: 추후 인증 연결
-  const isLoggedIn = true;
-  const currentUser = '박관람'; // 본인 후기 판별용 (임시)
-  const isOwner = true; // 전시회 주최자(관리자) 여부 (임시)
-  const isLiked = true; // 사용자가 이 전시회에 좋아요 눌렀는지 (임시)
 
   return (
     <main className="bg-[#FAF7F2] pb-20">
