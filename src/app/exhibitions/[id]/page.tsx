@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { ArrowRight, Calendar, Heart, Settings, Star } from 'lucide-react';
 import { formatDate, getStatus } from '@/lib/exhibition/dateStatus';
 import { ReviewSection } from '@/components/exhibition/reviewSection';
-import { WorkCard } from '@/components/exhibition/workCard';
+import { WorkDialog } from '@/components/exhibition/workDialog';
 import { ExhibitionEnded } from '@/components/exhibition/exhibitionEnded';
 import { ExhibitionUpcoming } from '@/components/exhibition/exhibitionUpcoming';
 import { Button } from '@/components/ui/button';
@@ -38,6 +38,26 @@ interface ExhibitionDetail {
 }
 
 const mockExhibitionDetail: Record<string, ExhibitionDetail> = {
+  '2': {
+    id: '2',
+    title: '봄의 소리전',
+    host: '해피아트 미술학원',
+    banner: '/images/sample_thumb.png',
+    startDate: '2026-03-01',
+    totalLikes: 201,
+    works: [
+      {
+        id: 'w1',
+        title: '봄날의 꿈',
+        artist: '이소율',
+        image: '/images/sample_thumb.png',
+        description:
+          '봄에 피어난 벚꽃을 보며 느낀 따뜻한 기분을 그렸어요. 분홍색 꽃잎이 바람에 날리는 모습이 가장 좋아하는 장면이에요.',
+        likes: 12,
+      },
+    ],
+    reviews: [],
+  },
   '3': {
     id: '3',
     title: '봄의 소리전',
@@ -255,7 +275,7 @@ export default async function ExhibitionDetail({ params }: PageProps) {
             </h2>
             <div className="grid grid-cols-4 gap-4 sm:grid-cols-6 lg:grid-cols-8">
               {exhibition.works.map((work) => (
-                <WorkCard
+                <WorkDialog
                   key={work.id}
                   work={work}
                   exhibitionTitle={exhibition.title}
