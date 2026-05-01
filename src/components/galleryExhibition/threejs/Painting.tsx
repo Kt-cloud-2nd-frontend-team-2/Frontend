@@ -16,6 +16,7 @@ export default function Painting({
 }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const paintTexture = useTexture(paintingDetails.paintingUrl);
+
   useEffect(() => {
     if (!meshRef.current) return;
     const mesh = meshRef.current;

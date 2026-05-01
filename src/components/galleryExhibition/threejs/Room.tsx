@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber';
 import React, { useRef } from 'react';
 import Painting from '@/components/galleryExhibition/threejs/Painting';
 import { PaintingType } from '../../../../types/gallery';
-import { createWalls } from '../../../../data/galleryData';
+import { createWalls } from '@/components/galleryExhibition/threejs/test/util/util';
 
 export default function Room({
   setIsModalOpen,
@@ -13,9 +13,8 @@ export default function Room({
   init: PaintingType[];
 }) {
   const size = 15;
-  const height = 15 * 0.3;
+  const height = 15 * 0.2;
   const walls = createWalls(size, height);
-  const raycaster = new THREE.Raycaster();
 
   const paintingsRef = useRef<Set<THREE.Mesh>>(new Set());
   const registerPainting = (mesh: THREE.Mesh) => {
@@ -26,19 +25,32 @@ export default function Room({
   };
 
   useFrame(({ camera }) => {
-    raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
+    let visibleId: number | null = null;
 
-    const intersects = raycaster.intersectObjects([...paintingsRef.current]);
+    const camDir = new THREE.Vector3();
+    camera.getWorldDirection(camDir);
 
-    if (intersects.length > 0 && intersects[0].distance < 4) {
-      const hit = intersects[0].object;
-      const id = (hit as THREE.Mesh).userData.id;
-      setIsModalOpen(id);
-    } else {
-      setIsModalOpen(null);
-    }
+    paintingsRef.current.forEach((mesh) => {
+      const paintingPos = new THREE.Vector3();
+      mesh.getWorldPosition(paintingPos);
+
+      const distance = camera.position.distanceTo(paintingPos);
+
+      const camToPainting = paintingPos
+        .clone()
+        .sub(camera.position)
+        .normalize();
+      const dot = camDir.dot(camToPainting);
+
+      const isVisible = dot > 0.9 && distance < 4;
+
+      if (isVisible) {
+        visibleId = mesh.userData.id;
+      }
+    });
+
+    setIsModalOpen(visibleId);
   });
-
   return (
     <>
       {/* floor */}
@@ -55,21 +67,20 @@ export default function Room({
               <meshStandardMaterial color={wall.color} />
             </mesh>
 
-            {i === 0 &&
-              init.map((painting, i) => {
-                const gap = size / (3 + 1);
-                const x = -size / 2 + gap * (i + 1);
+            {init.slice(i * 3, i * 3 + 3).map((painting, i) => {
+              const gap = size / (3 + 1);
+              const x = -size / 2 + gap * (i + 1);
 
-                return (
-                  <Painting
-                    key={painting.id}
-                    register={registerPainting}
-                    unregister={unregisterPainting}
-                    paintingDetails={painting}
-                    x={x}
-                  />
-                );
-              })}
+              return (
+                <Painting
+                  key={i}
+                  register={registerPainting}
+                  unregister={unregisterPainting}
+                  paintingDetails={painting}
+                  x={x}
+                />
+              );
+            })}
           </group>
         );
       })}

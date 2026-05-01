@@ -1,9 +1,17 @@
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { SPEED } from '../../../../data/galleryData';
+import { WAllType } from '../../../../../types/gallery';
 
-export default function Player({ size = 15 }: { size?: number }) {
+export default function Player({
+  size = 15,
+  speed = 5,
+  innerWalls,
+}: {
+  size?: number;
+  speed: number;
+  innerWalls: WAllType[];
+}) {
   const velocity = useRef(new THREE.Vector3());
   const direction = useRef(new THREE.Vector3());
 
@@ -16,9 +24,6 @@ export default function Player({ size = 15 }: { size?: number }) {
     s: false,
     d: false,
   });
-
-  const limit = size / 2 - 0.5;
-  const speed = SPEED;
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -57,8 +62,6 @@ export default function Player({ size = 15 }: { size?: number }) {
     if (keys.current.a) direction.current.x += 1;
     if (keys.current.d) direction.current.x -= 1;
 
-    // direction.current.normalize();
-
     velocity.current.x = direction.current.x * speed * delta;
     velocity.current.z = direction.current.z * speed * delta;
 
@@ -66,11 +69,13 @@ export default function Player({ size = 15 }: { size?: number }) {
 
     camera.getWorldDirection(forward.current);
     forward.current.y = 0;
+
     if (forward.current.lengthSq() < 1e-6) {
       forward.current.set(0, 0, -1);
     } else {
       forward.current.normalize();
     }
+
     right.current.crossVectors(camera.up, forward.current).normalize();
 
     const newX =
@@ -83,11 +88,40 @@ export default function Player({ size = 15 }: { size?: number }) {
       right.current.z * velocity.current.x -
       forward.current.z * velocity.current.z;
 
-    camera.position.set(
-      THREE.MathUtils.clamp(newX, -limit, limit),
-      size / 30,
-      THREE.MathUtils.clamp(newZ, -limit, limit)
-    );
+    const newPos = new THREE.Vector3(newX, size / 30, newZ);
+
+    let blocked = false;
+
+    innerWalls.forEach((wall) => {
+      const pos = new THREE.Vector3(...wall.pos);
+      const rot = new THREE.Euler(...wall.rot!);
+      const sizeWall = new THREE.Vector3(...wall.boxSize);
+
+      const mat = new THREE.Matrix4().compose(
+        pos,
+        new THREE.Quaternion().setFromEuler(rot),
+        new THREE.Vector3(1, 1, 1)
+      );
+
+      const inv = new THREE.Matrix4().copy(mat).invert();
+
+      const temp = new THREE.Vector3().copy(newPos).applyMatrix4(inv);
+
+      const halfX = sizeWall.x / 2;
+      const halfZ = sizeWall.z / 2;
+      const pad = 0.3;
+
+      const inside =
+        Math.abs(temp.x) < halfX + pad && Math.abs(temp.z) < halfZ + pad;
+
+      if (inside) {
+        blocked = true;
+      }
+    });
+
+    if (!blocked) {
+      camera.position.copy(newPos);
+    }
   });
   return <>{/*<pointLight position={[0,2,0]} intensity={10} />*/}</>;
 }

@@ -1,26 +1,41 @@
 import { Canvas } from '@react-three/fiber';
-import { PointerLockControls } from '@react-three/drei';
-import React, { useRef } from 'react';
-import Player from '@/components/galleryExhibition/threejs/Player';
-import { INIT } from '../../../../../data/galleryData';
+import { PointerLockControls, useTexture } from '@react-three/drei';
+import React, { useMemo } from 'react';
 import Room from '@/components/galleryExhibition/threejs/test/Room';
-import { PointLight } from 'three';
-function Light() {
-  const ref = useRef<PointLight>(null!);
 
-  // useHelper(ref, PointLightHelper);
+import Player from '@/components/galleryExhibition/threejs/test/Player';
+import {
+  createWalls,
+  generateGalleryWalls,
+} from '@/components/galleryExhibition/threejs/test/util/util';
+import { INIT } from '../../../../../data/galleryData';
 
-  return <pointLight ref={ref} position={[0, 1, 0]} intensity={0.2} />;
-}
 export default function Scene2() {
+  const size = 21;
+  const height = size * 0.3;
+
+  const innerWalls = useMemo(() => generateGalleryWalls(size), []);
+  const walls = createWalls(size, height);
+
+  const urls = useMemo(() => INIT.map((x) => x.paintingUrl), [INIT]);
+
+  useTexture.preload(urls); // preload
+
   return (
-    <>
-      <Canvas shadows camera={{ fov: 75 }}>
-        <Room init={INIT} />
-        <Light />
-        <Player />
+    <div className={'h-screen w-screen bg-white'}>
+      <Canvas shadows camera={{ fov: 50 }}>
+        <Room
+          walls={walls}
+          innerWalls={innerWalls}
+          init={INIT}
+          size={size}
+          height={height}
+        />
+        <ambientLight intensity={1} />
+
+        <Player innerWalls={innerWalls} size={size} speed={3} />
         <PointerLockControls />
       </Canvas>
-    </>
+    </div>
   );
 }
