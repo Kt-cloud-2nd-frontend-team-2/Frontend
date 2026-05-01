@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { WAllType } from '../../../../../types/gallery';
 
@@ -25,6 +25,24 @@ export default function Player({
     d: false,
   });
 
+  const localPos = useRef(new THREE.Vector3());
+
+  const colliders = useMemo(() => {
+    return innerWalls.map((wall) => {
+      const pos = new THREE.Vector3(...wall.pos);
+      const rot = new THREE.Euler(...(wall.rot ?? [0, 0, 0]));
+      const mat = new THREE.Matrix4().compose(
+        pos,
+        new THREE.Quaternion().setFromEuler(rot),
+        new THREE.Vector3(1, 1, 1)
+      );
+      return {
+        inv: mat.clone().invert(),
+        halfX: wall.boxSize[0] / 2,
+        halfZ: wall.boxSize[2] / 2,
+      };
+    });
+  }, [innerWalls]);
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       const key = e.code
@@ -59,8 +77,8 @@ export default function Player({
 
     if (keys.current.w) direction.current.z -= 1;
     if (keys.current.s) direction.current.z += 1;
-    if (keys.current.a) direction.current.x += 1;
-    if (keys.current.d) direction.current.x -= 1;
+    if (keys.current.a) direction.current.x -= 1;
+    if (keys.current.d) direction.current.x += 1;
 
     velocity.current.x = direction.current.x * speed * delta;
     velocity.current.z = direction.current.z * speed * delta;
@@ -76,7 +94,7 @@ export default function Player({
       forward.current.normalize();
     }
 
-    right.current.crossVectors(camera.up, forward.current).normalize();
+    right.current.crossVectors(forward.current, camera.up).normalize();
 
     const newX =
       camera.position.x +
@@ -92,32 +110,20 @@ export default function Player({
 
     let blocked = false;
 
-    innerWalls.forEach((wall) => {
-      const pos = new THREE.Vector3(...wall.pos);
-      const rot = new THREE.Euler(...wall.rot!);
-      const sizeWall = new THREE.Vector3(...wall.boxSize);
+    const pad = 0.3;
 
-      const mat = new THREE.Matrix4().compose(
-        pos,
-        new THREE.Quaternion().setFromEuler(rot),
-        new THREE.Vector3(1, 1, 1)
-      );
-
-      const inv = new THREE.Matrix4().copy(mat).invert();
-
-      const temp = new THREE.Vector3().copy(newPos).applyMatrix4(inv);
-
-      const halfX = sizeWall.x / 2;
-      const halfZ = sizeWall.z / 2;
-      const pad = 0.3;
+    for (const collider of colliders) {
+      const temp = localPos.current.copy(newPos).applyMatrix4(collider.inv);
 
       const inside =
-        Math.abs(temp.x) < halfX + pad && Math.abs(temp.z) < halfZ + pad;
+        Math.abs(temp.x) < collider.halfX + pad &&
+        Math.abs(temp.z) < collider.halfZ + pad;
 
       if (inside) {
         blocked = true;
+        break;
       }
-    });
+    }
 
     if (!blocked) {
       camera.position.copy(newPos);
