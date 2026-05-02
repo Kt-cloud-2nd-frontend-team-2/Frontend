@@ -1,3 +1,11 @@
+export type FormProps = {
+  galleryName: string;
+  galleryDesc: string;
+  galleryImg: File | null;
+  startDate: string;
+  endDate: string | null;
+  guildLines?: string | null;
+};
 export type WAllType = {
   color: string;
   pos: [number, number, number];

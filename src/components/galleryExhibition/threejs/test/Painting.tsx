@@ -2,8 +2,11 @@ import { Texture } from 'three';
 import { PaintingType } from '../../../../../types/gallery';
 import React from 'react';
 import { Html } from '@react-three/drei';
-import { checkImgSize } from '@/components/galleryExhibition/threejs/test/util/util';
-
+import {
+  checkImgSize,
+  downloadImgHandler,
+} from '@/components/galleryExhibition/threejs/test/util/util';
+import { Bookmark, Download, Heart } from 'lucide-react';
 export default function Painting({
   visible,
   img,
@@ -43,12 +46,42 @@ export default function Painting({
             willChange: 'opacity, transform',
           }}
         >
-          <div className={'gap flex flex-col font-bold text-white'}>
-            <h1 className={'text-[45px]'}>{details?.title}</h1>
+          <div className={'gap flex flex-col gap-1 font-bold text-white'}>
+            <h1 className={'text-[45px]'}>
+              {details.id}:{details?.title}
+            </h1>
             <h1 className={'text-[25px]'}>{details?.author}</h1>
             <p className={'text-[20px] text-wrap text-gray-200'}>
               {details?.desc}
             </p>
+            <div className={'mt-1 flex justify-end gap-2 text-gray-200'}>
+              <div className={'flex gap-1'}>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    console.log('ewnjs');
+                  }}
+                >
+                  <Heart fill={'#e68181'} />
+                </button>
+                <p>11</p>
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  console.log('ewnjs');
+                }}
+              >
+                <Bookmark />
+              </button>
+              <button
+                onClick={(e) => {
+                  downloadImgHandler(e, details.paintingUrl, details.title);
+                }}
+              >
+                <Download />
+              </button>
+            </div>
           </div>
         </Html>
       </mesh>

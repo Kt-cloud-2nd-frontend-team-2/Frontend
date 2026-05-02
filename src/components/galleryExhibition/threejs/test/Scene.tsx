@@ -18,7 +18,6 @@ export default function Scene2() {
   const walls = createWalls(size, height);
 
   const urls = useMemo(() => INIT.map((x) => x.paintingUrl), [INIT]);
-
   useTexture.preload(urls); // preload
 
   return (

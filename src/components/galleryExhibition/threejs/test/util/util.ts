@@ -1,5 +1,6 @@
 import { Cell, WAllType } from '../../../../../../types/gallery';
 import { Texture } from 'three';
+import React from 'react';
 
 export function generateGalleryWalls(roomSize: number) {
   const size = 3;
@@ -103,6 +104,7 @@ export function generateGalleryWalls(roomSize: number) {
       const h = roomSize * 0.2;
       const t = 0.3;
 
+      //똑같은 두께의 벽이 동일좌표에 생성되니까 텍스쳐가 깨질 가능성? -> 벽을 z축으로 조금 더 미는거?
       // top
       if (cell.walls.top) {
         walls.push({
@@ -204,4 +206,37 @@ export function checkImgSize(
     imgW = imgH * imgAspect;
   }
   return [imgW, imgH];
+}
+
+export async function downloadImgHandler(
+  e: React.MouseEvent<HTMLButtonElement>,
+  url: string,
+  title: string
+) {
+  e.stopPropagation();
+  try {
+    const res = await fetch(url);
+    const blob = await res.blob();
+
+    const blobUrl = window.URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = title || 'image';
+
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    window.URL.revokeObjectURL(blobUrl);
+  } catch (err) {
+    console.error('download fail', err);
+  }
+}
+export function likesHandler(paintingId: number) {
+  // 얘는 로그인 필요 -> 페인팅 아이디만넘겨주면 서버측에서 paintingId + userId 로 db저장
+}
+
+export function bookmarkHandler(paintingId: number) {
+  // 좋아요가 있는데 필요할까?
 }

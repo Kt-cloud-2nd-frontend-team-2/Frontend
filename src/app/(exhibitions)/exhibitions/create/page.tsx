@@ -4,13 +4,7 @@ import ImageUpload from '@/components/galleryCreate/ImageUpload';
 import CreateGalleryFormWrapper from '@/components/galleryCreate/FormWrapper';
 import { FaArrowRight } from 'react-icons/fa';
 import { Palette, ImagePlus, Calendar, FileText, X } from 'lucide-react';
-type FormProps = {
-  galleryName: string;
-  galleryDesc: string;
-  galleryImg: File | null;
-  startDate: string;
-  endDate: string | null;
-};
+import { FormProps } from '../../../../../types/gallery';
 export default function GalleryCreatePage() {
   const {
     register,
@@ -30,6 +24,7 @@ export default function GalleryCreatePage() {
   });
   const submitHandler = (e: FormProps) => {
     console.log(e);
+    // s
     console.log('enqwjshewiudnjweh');
   };
 
