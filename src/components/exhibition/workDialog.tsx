@@ -69,9 +69,7 @@ export function WorkDialog({
             src={work.image}
             alt={work.title}
             fill
-            sizes="(min-width: 1024px) 768px, 100vw"
             className="object-cover"
-            priority
           />
         </div>
         {/* 정보 영역 */}

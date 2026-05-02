@@ -10,7 +10,6 @@ interface ExhibitionUpcomingProps {
 }
 
 export function ExhibitionUpcoming({
-  id,
   title,
   host,
   startDate,
