@@ -1,8 +1,11 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   User,
@@ -13,14 +16,133 @@ import {
   CheckCircle,
   Building2,
 } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
+import { getAuthErrorMessage } from '@/lib/supabase/authErrors';
 
 type UserType = 'general' | 'teacher';
 
 export default function SignupPage() {
+  const router = useRouter();
+  const supabase = createClient();
+
   const [userType, setUserType] = useState<UserType>('general');
   const [emailSent, setEmailSent] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [otp, setOtp] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [organization, setOrganization] = useState('');
+  const [purpose, setPurpose] = useState('');
+
+  const [isSendingOtp, setIsSendingOtp] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [infoMessage, setInfoMessage] = useState<string | null>(null);
+
+  const handleSendOtp = async () => {
+    setErrorMessage(null);
+    setInfoMessage(null);
+
+    if (!email) {
+      setErrorMessage('이메일을 입력해주세요.');
+      return;
+    }
+
+    setIsSendingOtp(true);
+    const res = await fetch('/api/auth/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    setIsSendingOtp(false);
+
+    if (!res.ok) {
+      const { error } = await res.json();
+      setErrorMessage(error ?? '이메일 발송에 실패했습니다.');
+      return;
+    }
+
+    setEmailSent(true);
+    setInfoMessage('인증번호를 이메일로 발송했습니다.');
+  };
+
+  const handleSignup = async () => {
+    setErrorMessage(null);
+    setInfoMessage(null);
+
+    if (!name.trim()) {
+      setErrorMessage('이름을 입력해주세요.');
+      return;
+    }
+    if (!emailSent) {
+      setErrorMessage('이메일 인증을 먼저 진행해주세요.');
+      return;
+    }
+    if (!otp || otp.length !== 8) {
+      setErrorMessage('8자리 인증번호를 입력해주세요.');
+      return;
+    }
+    if (password.length < 6) {
+      setErrorMessage('비밀번호는 6자 이상이어야 합니다.');
+      return;
+    }
+    if (password !== confirmPassword) {
+      setErrorMessage('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+    if (userType === 'teacher' && !organization.trim()) {
+      setErrorMessage('교육기관명을 입력해주세요.');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    const signupRes = await fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email,
+        otp,
+        password,
+        name,
+        role: userType,
+        organization,
+        purpose,
+      }),
+    });
+
+    if (!signupRes.ok) {
+      setIsSubmitting(false);
+      try {
+        const { error } = await signupRes.json();
+        setErrorMessage(error ?? '회원가입에 실패했습니다.');
+      } catch {
+        setErrorMessage('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      }
+      return;
+    }
+
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    setIsSubmitting(false);
+
+    if (signInError) {
+      setErrorMessage(
+        `가입은 완료됐으나 로그인에 실패했습니다. (${getAuthErrorMessage(signInError)}) 로그인 페이지에서 다시 시도해주세요.`
+      );
+      return;
+    }
+
+    router.replace('/');
+    router.refresh();
+  };
 
   return (
     <main className="flex min-h-screen flex-1 items-center justify-center bg-[#FAF7F2] px-4 pt-28 pb-12">
@@ -89,6 +211,8 @@ export default function SignupPage() {
                     </div>
                     <input
                       type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       placeholder="이름을 입력하세요"
                       className="border-secondary/5 text-secondary placeholder:text-secondary/30 focus:border-primary/40 focus:ring-primary/30 h-12.5 w-full rounded-[14px] border bg-[#faf7f2] pr-4 pl-10 text-[16px] transition-all outline-none focus:ring-2"
                     />
@@ -107,15 +231,23 @@ export default function SignupPage() {
                       </div>
                       <input
                         type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         placeholder="example@email.com"
                         className="border-secondary/5 text-secondary placeholder:text-secondary/30 focus:border-primary/40 focus:ring-primary/30 h-12.5 w-full rounded-[14px] border bg-[#faf7f2] pr-4 pl-10 text-[16px] transition-all outline-none focus:ring-2"
                       />
                     </div>
                     <button
-                      onClick={() => setEmailSent(true)}
-                      className="bg-primary/10 text-primary hover:bg-primary/20 h-12.5 rounded-[14px] px-4 text-[14px] font-medium whitespace-nowrap transition-colors"
+                      type="button"
+                      onClick={handleSendOtp}
+                      disabled={isSendingOtp}
+                      className="bg-primary/10 text-primary hover:bg-primary/20 h-12.5 rounded-[14px] px-4 text-[14px] font-medium whitespace-nowrap transition-colors disabled:opacity-60"
                     >
-                      {emailSent ? '재발송' : '인증발송'}
+                      {isSendingOtp
+                        ? '발송 중...'
+                        : emailSent
+                          ? '재발송'
+                          : '인증발송'}
                     </button>
                   </div>
                 </div>
@@ -130,8 +262,12 @@ export default function SignupPage() {
                       <input
                         type="text"
                         inputMode="numeric"
-                        maxLength={6}
-                        placeholder="인증번호 6자리 입력"
+                        maxLength={8}
+                        value={otp}
+                        onChange={(e) =>
+                          setOtp(e.target.value.replace(/\D/g, ''))
+                        }
+                        placeholder="인증번호 8자리 입력"
                         className="border-secondary/5 text-secondary placeholder:text-secondary/30 focus:border-primary/40 focus:ring-primary/30 h-12.5 flex-1 rounded-[14px] border bg-[#faf7f2] px-4 text-[16px] transition-all outline-none focus:ring-2"
                       />
                       <div className="flex shrink-0 items-center gap-1">
@@ -155,11 +291,14 @@ export default function SignupPage() {
                     </div>
                     <input
                       type={showPassword ? 'text' : 'password'}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       placeholder="6자 이상"
                       className="border-secondary/5 text-secondary placeholder:text-secondary/30 focus:border-primary/40 focus:ring-primary/30 h-12.5 w-full rounded-[14px] border bg-[#faf7f2] pr-12 pl-10 text-[16px] transition-all outline-none focus:ring-2"
                     />
                     <button
                       type="button"
+                      tabIndex={-1}
                       onClick={() => setShowPassword(!showPassword)}
                       className="text-secondary/40 hover:text-secondary/70 absolute top-1/2 right-3.5 -translate-y-1/2 transition-colors"
                     >
@@ -183,11 +322,14 @@ export default function SignupPage() {
                     </div>
                     <input
                       type={showConfirmPassword ? 'text' : 'password'}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder="비밀번호 재입력"
                       className="border-secondary/5 text-secondary placeholder:text-secondary/30 focus:border-primary/40 focus:ring-primary/30 h-12.5 w-full rounded-[14px] border bg-[#faf7f2] pr-12 pl-10 text-[16px] transition-all outline-none focus:ring-2"
                     />
                     <button
                       type="button"
+                      tabIndex={-1}
                       onClick={() =>
                         setShowConfirmPassword(!showConfirmPassword)
                       }
@@ -229,6 +371,8 @@ export default function SignupPage() {
                         </div>
                         <input
                           type="text"
+                          value={organization}
+                          onChange={(e) => setOrganization(e.target.value)}
                           placeholder="학원 / 학교명"
                           className="border-secondary/5 text-secondary placeholder:text-secondary/30 focus:border-primary/40 focus:ring-primary/30 h-12.5 w-full rounded-[14px] border bg-[#faf7f2] pr-4 pl-10 text-[16px] transition-all outline-none focus:ring-2"
                         />
@@ -241,6 +385,8 @@ export default function SignupPage() {
                         사용 목적
                       </label>
                       <textarea
+                        value={purpose}
+                        onChange={(e) => setPurpose(e.target.value)}
                         placeholder="사용 목적을 간략하게 작성해주세요"
                         rows={4}
                         className="border-secondary/5 text-secondary placeholder:text-secondary/30 focus:border-primary/40 focus:ring-primary/30 w-full resize-none rounded-[14px] border bg-[#faf7f2] px-4 py-3 text-[16px] leading-6 transition-all outline-none focus:ring-2"
@@ -251,9 +397,25 @@ export default function SignupPage() {
               </AnimatePresence>
             </div>
 
+            {/* 메시지 영역 */}
+            {(errorMessage || infoMessage) && (
+              <p
+                className={`text-[14px] ${
+                  errorMessage ? 'text-red-500' : 'text-[#00c950]'
+                }`}
+              >
+                {errorMessage ?? infoMessage}
+              </p>
+            )}
+
             {/* 회원가입 버튼 */}
-            <button className="bg-primary h-13 w-full rounded-[14px] text-[16px] font-semibold text-white shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)] transition-all hover:bg-[#e5aa35] active:scale-[0.99]">
-              회원가입 완료
+            <button
+              type="button"
+              onClick={handleSignup}
+              disabled={isSubmitting}
+              className="bg-primary h-13 w-full rounded-[14px] text-[16px] font-semibold text-white shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)] transition-all hover:bg-[#e5aa35] active:scale-[0.99] disabled:opacity-60"
+            >
+              {isSubmitting ? '처리 중...' : '회원가입 완료'}
             </button>
 
             {/* 로그인 링크 */}
