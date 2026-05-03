@@ -1,4 +1,4 @@
-import { PaintingType } from '../types/gallery';
+import { PaintingType } from '@/types/gallery';
 
 export const size = 15;
 

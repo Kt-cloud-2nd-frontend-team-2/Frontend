@@ -4,7 +4,7 @@ export type FormProps = {
   galleryImg: File | null;
   startDate: string;
   endDate: string | null;
-  guildLines?: string | null;
+  guideLines?: string | null;
 };
 export type WAllType = {
   color: string;

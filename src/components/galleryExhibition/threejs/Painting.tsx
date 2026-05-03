@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import React, { useEffect, useRef } from 'react';
 import { useTexture } from '@react-three/drei';
-import { PaintingType } from '../../../../types/gallery';
+import { PaintingType } from '../../../types/gallery';
 
 export default function Painting({
   x,

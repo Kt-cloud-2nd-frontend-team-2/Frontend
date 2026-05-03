@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { PaintingType, WAllType } from '../../../../../types/gallery';
+import { PaintingType, WAllType } from '../../../../types/gallery';
 import { useTexture } from '@react-three/drei';
 import Floor from '@/components/galleryExhibition/threejs/test/Floor';
 import Ceiling from '@/components/galleryExhibition/threejs/test/Ceiling';

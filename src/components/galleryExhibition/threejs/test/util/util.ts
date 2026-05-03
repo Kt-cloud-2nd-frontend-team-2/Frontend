@@ -1,4 +1,4 @@
-import { Cell, WAllType } from '../../../../../../types/gallery';
+import { Cell, WAllType } from '../../../../../types/gallery';
 import { Texture } from 'three';
 import React from 'react';
 

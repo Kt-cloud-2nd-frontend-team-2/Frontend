@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import ModalWrapper from '@/components/galleryExhibition/threejs/ModalWrapper';
 import Player from '@/components/galleryExhibition/threejs/Player';
-import { PaintingType } from '../../../../types/gallery';
+import { PaintingType } from '../../../types/gallery';
 import { INIT } from '../../../../data/galleryData';
 
 export default function Scene() {

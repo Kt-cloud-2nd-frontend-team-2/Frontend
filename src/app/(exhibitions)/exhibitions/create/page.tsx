@@ -3,8 +3,16 @@ import { Controller, useForm } from 'react-hook-form';
 import ImageUpload from '@/components/galleryCreate/ImageUpload';
 import CreateGalleryFormWrapper from '@/components/galleryCreate/FormWrapper';
 import { FaArrowRight } from 'react-icons/fa';
-import { Palette, ImagePlus, Calendar, FileText, X } from 'lucide-react';
-import { FormProps } from '../../../../../types/gallery';
+import {
+  Palette,
+  ImagePlus,
+  Calendar,
+  FileText,
+  X,
+  ShieldAlert,
+} from 'lucide-react';
+import { FormProps } from '@/types/gallery';
+import { postNewExhibition } from '@/service/exhibitions';
 export default function GalleryCreatePage() {
   const {
     register,
@@ -18,16 +26,39 @@ export default function GalleryCreatePage() {
       galleryName: '',
       galleryDesc: '',
       galleryImg: null,
+      guideLines: null,
       startDate: '',
       endDate: null,
     },
   });
-  const submitHandler = (e: FormProps) => {
-    console.log(e);
-    // s
-    console.log('enqwjshewiudnjweh');
-  };
 
+  const submitHandler = async (e: FormProps) => {
+    const formData = new FormData();
+
+    formData.append('galleryName', e.galleryName);
+    formData.append('galleryDesc', e.galleryDesc);
+
+    if (e.galleryImg) {
+      formData.append('galleryImg', e.galleryImg);
+    }
+
+    if (e.guideLines) {
+      formData.append('guideLines', e.guideLines);
+    }
+
+    formData.append('startDate', e.startDate);
+
+    if (e.endDate) {
+      formData.append('endDate', e.endDate);
+    }
+
+    try {
+      const exhibitionId = await postNewExhibition(formData); // 전시관 생성 후 id 리턴 -> id 로 전시관 상세(전시 작품) 넣으면 될 듯
+      console.log(exhibitionId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <div className={'flex w-full flex-col items-center px-[20px] py-[40px]'}>
@@ -66,6 +97,7 @@ export default function GalleryCreatePage() {
                   placeholder={'예: 봄의 소리전, 상상화전...'}
                 />
               </CreateGalleryFormWrapper>
+              {/*<ShieldAlert />*/}
               <CreateGalleryFormWrapper
                 title={'전시회 설명'}
                 icon={<FileText className={'text-primary w-[17px]'} />}
@@ -81,6 +113,19 @@ export default function GalleryCreatePage() {
                 />
               </CreateGalleryFormWrapper>
 
+              <CreateGalleryFormWrapper
+                title={'가이드라인'}
+                icon={<ShieldAlert className={'text-primary w-[17px]'} />}
+              >
+                <textarea
+                  rows={2}
+                  {...register('guideLines')}
+                  placeholder={'전시회에 대한 가이드라인을 작성해주세요.'}
+                  className={
+                    'w-full resize-none bg-transparent text-[16px] outline-none'
+                  }
+                />
+              </CreateGalleryFormWrapper>
               <Controller
                 name="galleryImg"
                 control={control}

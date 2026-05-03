@@ -1,5 +1,5 @@
 import { Texture } from 'three';
-import { PaintingType } from '../../../../../types/gallery';
+import { PaintingType } from '../../../../types/gallery';
 import React from 'react';
 import { Html } from '@react-three/drei';
 import {

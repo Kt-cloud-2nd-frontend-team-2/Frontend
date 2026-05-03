@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import React, { useRef } from 'react';
 import Painting from '@/components/galleryExhibition/threejs/Painting';
-import { PaintingType } from '../../../../types/gallery';
+import { PaintingType } from '../../../types/gallery';
 import { createWalls } from '@/components/galleryExhibition/threejs/test/util/util';
 
 export default function Room({

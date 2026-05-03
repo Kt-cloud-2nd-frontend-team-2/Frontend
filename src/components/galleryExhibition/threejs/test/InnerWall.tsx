@@ -1,5 +1,5 @@
 import React from 'react';
-import { PaintingType, WAllType } from '../../../../../types/gallery';
+import { PaintingType, WAllType } from '../../../../types/gallery';
 import Painting from '@/components/galleryExhibition/threejs/test/Painting';
 import { Texture } from 'three';
 
