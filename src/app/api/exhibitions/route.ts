@@ -2,12 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 
 export async function POST(req: NextRequest) {
-  const supabase = await createClient();
-  const body = await req.formData();
-  // console.log(body)
   try {
-    const { data: sessionData } = await supabase.auth.getSession();
-    const user = sessionData?.session?.user;
+    const supabase = await createClient();
+    const body = await req.formData();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
     if (!user) {
       return NextResponse.json({ message: 'no session' }, { status: 401 });
     }
@@ -37,11 +37,10 @@ export async function POST(req: NextRequest) {
         console.log(error);
         return NextResponse.json(
           { message: 'img convert Error' },
-          { status: 401 }
+          { status: 500 }
         );
       }
     }
-    // console.log(title,description,guidelines,start_date,end_date);
     ({ data, error } = await supabase
       .from('exhibitions')
       .insert({
@@ -59,7 +58,7 @@ export async function POST(req: NextRequest) {
       console.log(error);
       return NextResponse.json(
         { message: 'database insertion error' },
-        { status: 401 }
+        { status: 500 }
       );
     }
 

@@ -13,12 +13,13 @@ import {
 } from 'lucide-react';
 import { FormProps } from '@/types/gallery';
 import { postNewExhibition } from '@/service/exhibitions';
+import { useRouter } from 'next/navigation';
 export default function GalleryCreatePage() {
   const {
     register,
     watch,
     control,
-    formState: { isValid, errors },
+    formState: { isValid, errors, isSubmitting },
     handleSubmit,
   } = useForm<FormProps>({
     mode: 'onChange',
@@ -31,6 +32,7 @@ export default function GalleryCreatePage() {
       endDate: null,
     },
   });
+  const router = useRouter();
 
   const submitHandler = async (e: FormProps) => {
     const formData = new FormData();
@@ -54,6 +56,7 @@ export default function GalleryCreatePage() {
 
     try {
       const exhibitionId = await postNewExhibition(formData); // 전시관 생성 후 id 리턴 -> id 로 전시관 상세(전시 작품) 넣으면 될 듯
+      router.push(`/exhibitions/${exhibitionId}/manage`);
       console.log(exhibitionId);
     } catch (err) {
       console.log(err);
@@ -194,11 +197,17 @@ export default function GalleryCreatePage() {
               <div className={'flex h-14 gap-3'}>
                 <button
                   type="submit"
-                  disabled={!isValid}
+                  disabled={!isValid || isSubmitting}
                   className={`bg-primary flex-1 rounded-[16px] text-[16px] font-bold text-white disabled:opacity-40`}
                 >
-                  다음: 작품 등록하기
-                  <FaArrowRight className={'m-auto inline text-sm'} />
+                  {isSubmitting ? (
+                    <p>전시관 생성중</p>
+                  ) : (
+                    <p>
+                      다음 : 작품 등록하기
+                      <FaArrowRight className={'m-auto inline text-sm'} />
+                    </p>
+                  )}
                 </button>
                 <button
                   className={
