@@ -11,9 +11,9 @@ import {
   X,
   ShieldAlert,
 } from 'lucide-react';
-import { FormProps } from '@/types/gallery';
 import { postNewExhibition } from '@/service/exhibitions';
 import { useRouter } from 'next/navigation';
+import { UIFormProps } from '@/types/gallery';
 export default function GalleryCreatePage() {
   const {
     register,
@@ -21,7 +21,7 @@ export default function GalleryCreatePage() {
     control,
     formState: { isValid, errors, isSubmitting },
     handleSubmit,
-  } = useForm<FormProps>({
+  } = useForm<UIFormProps>({
     mode: 'onChange',
     defaultValues: {
       galleryName: '',
@@ -34,7 +34,7 @@ export default function GalleryCreatePage() {
   });
   const router = useRouter();
 
-  const submitHandler = async (e: FormProps) => {
+  const submitHandler = async (e: UIFormProps) => {
     const formData = new FormData();
 
     formData.append('galleryName', e.galleryName);

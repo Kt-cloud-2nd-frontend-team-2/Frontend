@@ -1,11 +1,21 @@
-export type FormProps = {
+export type UIFormProps = {
   galleryName: string;
   galleryDesc: string;
   galleryImg: File | null;
+  guideLines: string | null;
   startDate: string;
   endDate: string | null;
-  guideLines?: string | null;
 };
+
+export type FormValidation = {
+  title: FormDataEntryValue | null;
+  description: FormDataEntryValue | null;
+  thumbnailImg: FormDataEntryValue | null;
+  startDateRaw: FormDataEntryValue | null;
+  endDateRaw: FormDataEntryValue | null;
+  guidelines: FormDataEntryValue | null;
+};
+
 export type WAllType = {
   color: string;
   pos: [number, number, number];

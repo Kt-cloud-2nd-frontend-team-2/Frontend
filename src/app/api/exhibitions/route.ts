@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import {
+  parseFormDataToObj,
+  validateExhibition,
+} from '@/components/galleryExhibition/threejs/test/util/util';
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,17 +20,26 @@ export async function POST(req: NextRequest) {
 
     let thumbnailUrl: null | string = null;
 
-    const thumbnailImg = body.get('galleryImg');
-    const title = body.get('galleryName');
-    const description = body.get('galleryDesc');
-    const guidelines = body.get('guideLines');
-    const start_date = new Date(body.get('startDate') as string);
-    const end_date = body.get('endDate');
+    const parsedFormData = parseFormDataToObj(body);
+    const result = validateExhibition(parsedFormData);
 
-    // console.log(user);
-    if (thumbnailImg) {
+    if ('error' in result) {
+      return NextResponse.json({ message: result.error }, { status: 400 });
+    }
+
+    const {
+      title,
+      description,
+      thumbnailImg,
+      start_date,
+      end_date,
+      guidelines,
+    } = result.data;
+
+    if (thumbnailImg instanceof File) {
       const randomId = crypto.randomUUID();
-      const url = `${randomId}.jpg`;
+      const ext = thumbnailImg.name.split('.').pop();
+      const url = `${randomId}.${ext}`;
       ({ error } = await supabase.storage
         .from('thumbnails')
         .upload(`${url}`, thumbnailImg));

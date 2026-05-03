@@ -1,4 +1,4 @@
-import { Cell, WAllType } from '../../../../../types/gallery';
+import { Cell, FormValidation, WAllType } from '@/types/gallery';
 import { Texture } from 'three';
 import React from 'react';
 
@@ -239,4 +239,74 @@ export function likesHandler(paintingId: number) {
 
 export function bookmarkHandler(paintingId: number) {
   // 좋아요가 있는데 필요할까?
+}
+
+////api
+
+export function parseFormDataToObj(formData: FormData) {
+  const body = formData;
+  const galleryImg = body.get('galleryImg');
+  const galleryName = body.get('galleryName');
+  const galleryDesc = body.get('galleryDesc');
+  const guideLines = body.get('guideLines');
+  const startDate = body.get('startDate');
+  const endDate = body.get('endDate');
+
+  return {
+    title: galleryName,
+    description: galleryDesc,
+    thumbnailImg: galleryImg,
+    startDateRaw: startDate,
+    endDateRaw: endDate,
+    guidelines: guideLines,
+  };
+}
+
+export function validateExhibition(init: FormValidation) {
+  const {
+    title,
+    description,
+    thumbnailImg,
+    startDateRaw,
+    endDateRaw,
+    guidelines,
+  } = init;
+
+  if (typeof title !== 'string' || !title.trim()) {
+    return { error: 'invalid title' };
+  }
+
+  if (typeof description !== 'string') {
+    return { error: 'invalid description' };
+  }
+  if (guidelines !== null && typeof guidelines !== 'string') {
+    return { error: 'invalid guidelines' };
+  }
+
+  if (thumbnailImg != null && !(thumbnailImg instanceof File)) {
+    return { error: 'invalid image' };
+  }
+
+  if (typeof startDateRaw !== 'string') {
+    return { error: 'invalid startDate' };
+  }
+
+  const start_date = new Date(startDateRaw);
+
+  if (isNaN(start_date.getTime())) {
+    return { error: 'invalid startDate' };
+  }
+
+  const end_date = typeof endDateRaw === 'string' ? new Date(endDateRaw) : null;
+
+  return {
+    data: {
+      title,
+      description,
+      thumbnailImg,
+      start_date,
+      end_date,
+      guidelines,
+    },
+  };
 }
